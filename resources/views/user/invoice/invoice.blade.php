@@ -1,95 +1,13 @@
-@extends('layouts.user')
+﻿@extends('layouts.user')
 @section('head')
 <link rel="stylesheet" href="{{asset('css/vendor/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/vendor/select2-bootstrap.min.css')}}">
-<style>
-
-.slider a:hover {
-  color: #7f8c8d;
-  text-decoration: underline;
-}
-.slider .contain {
-  width: 100%;
-}
-.slider .row::-webkit-scrollbar { width: 0 !important }
-.slider .row {
-  /*overflow: scroll;
-  width: 100%;*/
-  overflow-x:auto;
-  overflow: -moz-scrollbars-none;
-  -ms-overflow-style: none;
-}
-.slider .row__inner {
-  -webkit-transition: 450ms -webkit-transform;
-  transition: 450ms -webkit-transform;
-  transition: 450ms transform;
-  transition: 450ms transform, 450ms -webkit-transform;
-  font-size: 0;
-  white-space: nowrap;
-  margin: 40px 0;
-  padding-bottom: 10px;
-}
-.tile {
-  position: relative;
-  display: inline-block;
-  width: 250px;
-  height: 140.625px;
-  margin-right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  -webkit-transition: 450ms all;
-  transition: 450ms all;
-  -webkit-transform-origin: center left;
-          transform-origin: center left;
-}
-.tile__img {
-  width: 250px;
-  height: 140.625px;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.tile__details {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  font-size: 10px;
-  opacity: 0;
-  background: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,0.9)), to(rgba(0,0,0,0)));
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-  -webkit-transition: 450ms opacity;
-  transition: 450ms opacity;
-}
-
-
-.tile:hover .tile__details {
-  opacity: 1;
-}
-.tile__title {
-  position: absolute;
-  bottom: 0;
-  padding: 10px;
-}
-.row__inner:hover {
-  -webkit-transform: translate3d(-62.5px, 0, 0);
-          transform: translate3d(-62.5px, 0, 0);
-}
-.row__inner:hover .tile {
-  opacity: 0.3;
-}
-.row__inner:hover .tile:hover {
-  -webkit-transform: scale(1.5);
-          transform: scale(1.5);
-  opacity: 1;
-}
-.tile:hover ~ .tile {
-  -webkit-transform: translate3d(125px, 0, 0);
-          transform: translate3d(125px, 0, 0);
-}
-/* .list-thumbnail{height:100px !important;} */
-.text-responsive{font-size:calc(100% + 1vw + 1vh);}
-</style>
+<link rel="stylesheet" href="{{asset('css/emoji.css')}}">
+<link href="{{asset('plugins/recorder/css/video-js.min.css')}}" rel="stylesheet">
+<link href="{{asset('plugins/recorder/css/videojs.wavesurfer.min.css')}}" rel="stylesheet">
+<link href="{{asset('plugins/recorder/css/videojs.record.min.css')}}" rel="stylesheet">
+<link href="{{asset('plugins/recorder/css/examples.css')}}" rel="stylesheet">
+@include('user.invoice.invoice_css')
 @endsection
 @section('main')
 <main>
@@ -186,12 +104,9 @@
                                                     <a href="Pages.Product.Detail.html">
                                                         <p class="list-item-heading mb-0 truncate">Invoice#{{$sent->id}}</p>
                                                     </a>
-                                                    <a class="bg-primary text-white rounded-circle h4" style="cursor:pointer;" onclick="event.preventDefault();
-                                                    document.getElementById('chat-form-{{$sent->id}}').submit();"><i class="iconsminds-speach-bubbles" ></i></a>
-                                                    <form id="chat-form-{{$sent->id}}" action="{{ route('chat') }}" method="POST" style="display: none;">
-                                                        <input type="hidden" name="invoice" value="{{$sent->id}}">
-                                                        @csrf
-                                                    </form>
+                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$sent->id}}-chat">
+                                                        <i class="iconsminds-speach-bubbles" ></i>
+                                                    </a>
                                                 </div>
                                                 <p class="mb-0 text-muted text-small w-15 w-sm-100">Cupcakes</p>
                                                 <p class="mb-0 text-muted text-small w-15 w-sm-100">13.04.2018</p>
@@ -233,12 +148,9 @@
                                                     <a href="Pages.Product.Detail.html">
                                                         <p class="list-item-heading mb-0 truncate">Invoice#{{$received->id}}</p>
                                                     </a>
-                                                    <a class="bg-primary text-white rounded-circle h4" style="cursor:pointer;" onclick="event.preventDefault();
-                                                    document.getElementById('chat-form-{{$received->id}}').submit();"><i class="iconsminds-speach-bubbles" ></i></a>
-                                                    <form id="chat-form-{{$received->id}}" action="{{ route('chat') }}" method="POST" style="display: none;">
-                                                        <input type="hidden" name="invoice" value="{{$received->id}}">
-                                                        @csrf
-                                                    </form>
+                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$received->id}}-chat">
+                                                        <i class="iconsminds-speach-bubbles" ></i>
+                                                    </a>
                                                 </div>
                                                 <p class="mb-0 text-muted text-small w-15 w-sm-100">Cupcakes</p>
                                                 <p class="mb-0 text-muted text-small w-15 w-sm-100">13.04.2018</p>
@@ -877,109 +789,103 @@
     </div>
     <div class="app-menu" style="width:300px !important;">
         <span class="d-block mt-3 text-center">Recent Messages</span>
-
-        <div class="p-4 h-100">
-            <div class="form-group">
-                <input type="text" class="form-control rounded" placeholder="Search">
-            </div>
-            <div class="tab-content h-100">
-                <div class="scroll">
-                    {{-- <div class="d-flex flex-row mb-1 border-bottom pb-3 mb-3">
-                        <a class="d-flex" href="#">
-                            <img alt="Profile Picture" src="{{asset('img/profile-pic-l.jpg')}}" class="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall">
-                        </a>
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                                <div class="min-width-zero"><a href="#"><p class="mb-0 truncate">Sarah Kortney</p></a>
-                                    <p class="mb-1 text-muted text-small">14:20</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mb-1 border-bottom pb-3 mb-3">
-                        <a class="d-flex" href="#">
-                            <img alt="Profile Picture" src="{{asset('img/profile-pic-l-2.jpg')}}" class="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall">
-                        </a>
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                                <div class="min-width-zero">
-                                    <a href="#"><p class="mb-0 truncate">Rasheeda Vaquera</p></a>
-                                    <p class="mb-1 text-muted text-small">11:10</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mb-1 border-bottom pb-3 mb-3">
-                        <a class="d-flex" href="#">
-                            <img alt="Profile Picture" src="{{asset('img/profile-pic-l-3.jpg')}}" class="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall">
-                        </a>
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                                <div class="min-width-zero">
-                                    <a href="#"><p class="mb-0 truncate">Shelia Otterson</p></a>
-                                    <p class="mb-1 text-muted text-small">09:50</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-row mb-1 pb-3 mb-3">
-                        <a class="d-flex" href="#">
-                            <img alt="Profile Picture" src="{{asset('img/profile-pic-l-4.jpg')}}" class="img-thumbnail border-0 rounded-circle mr-3 list-thumbnail align-self-center xsmall">
-                        </a>
-                        <div class="d-flex flex-grow-1 min-width-zero">
-                            <div class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
-                                <div class="min-width-zero">
-                                    <a href="#">
-                                        <p class="mb-0 truncate">Latarsha Gama</p>
-                                    </a>
-                                    <p class="mb-1 text-muted text-small">09:10</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                    <div class="scroll-content" id="converse">
-                        <div class="card d-inline-block mb-3 mr-2">
-                            <div class="card-body" style="padding:0.75rem">
-                                <div class="">
-                                    <p class="mb-0 text-muted">It looks to me like you have a lot planned before your deadline. I would suggest you push your deadline back so you have time to run a successful advertising campaign.</p>
-                                    <div class="position-absolute pt-1 pr-2 r-0 tick text-extra-small text-muted" style="bottom: 1px;">
-                                        12:45
-                                        <span class="text-extra-small text-muted"><i class="fas fa-check-double"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card d-inline-block mb-3 mr-2">
-                            <div class="card-body bg-light" style="padding:0.75rem">
-                                <div class="">
-                                    <p class="mb-0 text-semi-muted">How do you think we should move forward with this project?
-                                        As you know, we are expected to present it to our clients next week.</p>
-                                    <div class="position-absolute pt-1 pr-2 r-0 tick text-extra-small text-muted" style="bottom: 1px;">
-                                        12:45
-                                        <span class="text-extra-small text-muted"><i class="fa fa-check"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('user.chat.recentmessages')
         <a class="app-menu-button d-inline-block d-xl-none" href="#">
             <i class="simple-icon-options"></i>
         </a>
     </div>
 </main>
+<div class="modal fade" id="audioRecord" tabindex="-1" role="dialog" aria-labelledby="audioRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
 
+                <div class="call-container">
+                    {{-- <div class="current-user">
+                        <i class="simple-icon-microphone h3"></i>
+                    </div>
+                    <h5 class="calling-user-name">
+                        Click Record to begin recording<span class="calling">Recording...</span>
+                    </h5> --}}
+                    <audio id="myAudio" class="video-js vjs-default-skin"></audio>
+                    <div id="controls">
+                        <button id="recordButton" class="btn default">Record</button>
+                        <button id="pauseButton" disabled class="btn default">Pause</button>
+                        <button id="stopButton" disabled class="btn default">Stop</button>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="videoRecord" tabindex="-1" role="dialog" aria-labelledby="videoRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="call-container">
+                    <div class="current-user">
+                        <img src="{{asset('img/profile-pic-l.jpg')}}" alt="Avatar">
+                    </div>
+                    <h5 class="calling-user-name">
+                        Amy Hood <span class="calling">Video Recording...</span>
+                    </h5>
+                    <div class="calling-btns">
+                        <button class="btn btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <button class="btn btn-success" style="padding:6px 2px 0px 0px;">
+                            <i class="simple-icon-call-out"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="imageCapture" tabindex="-1" role="dialog" aria-labelledby="imageCaptureLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="call-container">
+
+                    <h5 class="calling-user-name">
+                         <span class="calling">Image Capturing...</span>
+                    </h5>
+                    <div id="my_camera1"></div>
+                    <button id="takepicture" type='button' class="btn btn-primary mt-2" onClick="take_snapshot1()">Take Snapshot</button>
+                    <input type="hidden" name="image1" id="image1">
+                    <div>
+                        <button type='button' class="retakepicture btn btn-warning mt-2" onClick="retake()">Retake Snapshot</button>
+                        <button type="button" class="retakepicture btn btn-success mt-2" id="sendCapture">
+                            <span>Send</span><i class="fa fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
 <script src="{{asset('js/vendor/progressbar.min.js')}}"></script>
 <script src="{{asset('js/vendor/jquery.autoellipsis.js')}}"></script>
 <script src="{{asset('js/vendor/Sortable.js')}}"></script>
 <script src="{{asset('js/vendor/select2.full.js')}}"></script>
+<script src="{{asset('js/emoji.js')}}"></script>
+<script src="{{asset('plugins/recorder/js/video.min.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/RecordRTC.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/adapter.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/wavesurfer.min.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/wavesurfer.microphone.min.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/videojs.wavesurfer.min.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/videojs.record.min.js')}}"></script>
+  <script src="{{asset('plugins/recorder/js/browser-workarounds.js')}}"></script>
 <script>
     $(document).ready(function(){
         $('#receivedinvoice').hide();
+        $('#conversation').hide();
     });
     $('#switchreceived').click(function(){
         $('#switchsent').removeClass('active');
@@ -992,6 +898,151 @@
         $('#switchsent').addClass('active');
         $('#receivedinvoice').hide();
         $('#sentinvoice').fadeIn();
+    });
+</script>
+<script>
+    $(document).on('click','.recent',function(){
+        id = $(this).attr('id');
+        $.ajax({
+            type:'POST',
+            url:'{{ route("invoiceconversation") }}',
+            data:{
+                '_token' : $('meta[name="csrf-token"]').attr('content'),
+                'invoice_id': parseInt(id),
+            },
+            success:function(data) {
+                $('#recentmessages').replaceWith(data);
+
+            },
+            error: function (data, textStatus, errorThrown) {
+            console.log(data);
+            },
+        });
+
+        let delay = 5000;
+        var count = 0;
+        let timerId = setTimeout(function request() {
+            $.ajax({
+                type:'POST',
+                    url:'{{ route("chatgetmessages") }}',
+                    data:{
+                        '_token' : $('meta[name="csrf-token"]').attr('content'),
+                        'id': invoice_id,
+                        'type': "invoice"
+                    },
+                    success:function(data) {
+                        if(data != 403)
+                        $('#converse').append(data);
+                    },
+                    error: function (data, textStatus, errorThrown) {
+                    console.log(data);
+                    delay *= 2;
+                    },
+            });
+        timerId = setTimeout(request, delay);
+        }, delay);
+
+    });
+</script>
+<script>
+    var invoice_id = $('[name="invoice"]').val();
+    function sendMessage(e){
+        if(event.key === 'Enter' && e.value != ''){
+            $.ajax({
+                type:'POST',
+                url:'{{ route("chatsendmessage") }}',
+                data:{
+                    '_token' : $('meta[name="csrf-token"]').attr('content'),
+                    'message': e.value,
+                    'id': invoice_id,
+                    'type': "invoice"
+                },
+                success:function(data) {
+                    $("#typetext").val('');
+                    $('#converse').append(data);
+                },
+                error: function (data, textStatus, errorThrown) {
+                console.log(data);
+                },
+            });
+        }
+    }
+
+</script>
+<script>
+    $(document).on('click','#startaudio',function(){
+        $("#audioRecord").modal()
+        var options = {
+            controls: true,
+            width: 440,
+            height: 300,
+            fluid: false,
+            plugins: {
+                wavesurfer: {
+                    src: 'live',
+                    waveColor: '#36393b',
+                    progressColor: 'black',
+                    debug: true,
+                    cursorWidth: 1,
+                    msDisplayMax: 20,
+                    hideScrollbar: true
+                },
+                record: {
+                    audio: true,
+                    video: false,
+                    maxLength: 20,
+                    debug: true
+                }
+            }
+        };
+
+            // apply audio workarounds for certain browsers
+            applyAudioWorkaround();
+
+        // create player
+        var player = videojs('myAudio', options, function() {
+            // print version information at startup
+            var msg = 'Using video.js ' + videojs.VERSION +
+                ' with videojs-record ' + videojs.getPluginVersion('record') +
+                ', videojs-wavesurfer ' + videojs.getPluginVersion('wavesurfer') +
+                ', wavesurfer.js ' + WaveSurfer.VERSION + ' and recordrtc ' +
+                RecordRTC.version;
+            videojs.log(msg);
+        });
+
+        // error handling
+        player.on('deviceError', function() {
+            console.log('device error:', player.deviceErrorCode);
+        });
+
+        player.on('error', function(element, error) {
+            console.error(error);
+        });
+
+        // user clicked the record button and started recording
+        player.on('startRecord', function() {
+            console.log('started recording!');
+        });
+
+        // user completed recording and stream is available
+        player.on('finishRecord', function() {
+            // the blob object contains the recorded data that
+            // can be downloaded by the user, stored on server etc.
+            console.log('finished recording: ', player.recordedData);
+        });
+    });
+
+    $('#startcamera').click(function(){
+        $("#imageCapture").modal()
+        Webcam.attach( '#my_camera1' );
+    });
+    $(function(){
+        $("#upload_link").on('click', function(e){
+            e.preventDefault();
+            $("#uploadfile:hidden").trigger('click');
+        });
+
+
     });
 </script>
 @endpush

@@ -15,7 +15,8 @@ class CreateConversationsTable extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('assetable_id');
+            $table->string('assetable_type');
             $table->unsignedBigInteger('user_id');
             $table->string('format');
             $table->string('body');

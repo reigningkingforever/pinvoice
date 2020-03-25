@@ -13,9 +13,7 @@ ROLES
 
 
 1. Integrate Sound and Video Library
-2. Change chat appearance to dropdown
 3. if new device, send OTP to email/or phone
-4. add wallet at the top.. let it drop down currency figure
 5. add captcha to login  -- downgrade laravel to make it happen
 6. Enterprise permissions
 7. Add Reset profile password (for Enterprise admin) to Reset password page
@@ -24,11 +22,10 @@ ROLES
 10.visitors,
 a1.Staff permissions (ability to send invoice, make payment, add invoice template, manage company profile, etc)
 a2.get notified of staff activities
-a3.create invoice and send, check if user is in contact and is on.
+a3.create invoice and send, check if user is in contact and is on...change contact table for many to many
 a4.role middleware
-a5. settings: when to archive chat
+
 a6. Support.
-"unicodeveloper/laravel-identify": "1.7.*"
 dispute table
 escrow table
 ticket table

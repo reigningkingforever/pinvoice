@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Currency;
+use App\Conversation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,5 +21,10 @@ class Invoice extends Model
     }
     public function getCurrency(){
         return $this->belongsTo(Currency::class,'currency');
+    }
+
+    public function conversations()
+    {
+        return $this->morphMany(Conversation::class,'assetable');
     }
 }

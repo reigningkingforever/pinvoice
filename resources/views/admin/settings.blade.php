@@ -22,8 +22,10 @@
                 </div>
                 <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
                     <li class="nav-item"><a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">GENERAL</a></li>
+                    <li class="nav-item"><a class="nav-link" id="authentication" data-toggle="tab" href="#auth" role="tab" aria-controls="auth" aria-selected="false">AUTHENTICATION</a></li>
                     <li class="nav-item"><a class="nav-link" id="throttle-tab" data-toggle="tab" href="#throttle" role="tab" aria-controls="throttle" aria-selected="false">THROTTLE </a></li>
                     <li class="nav-item"><a class="nav-link" id="notification-tab" data-toggle="tab" href="#notification" role="tab" aria-controls="notification" aria-selected="false">NOTIFICATIONS </a></li>
+                    <li class="nav-item"><a class="nav-link" id="communication-tab" data-toggle="tab" href="#communication" role="tab" aria-controls="communication" aria-selected="false">COMMUNICATION </a></li>
                     <li class="nav-item"><a class="nav-link" id="payment-tab" data-toggle="tab" href="#payment" role="tab" aria-controls="payment" aria-selected="false">PAYMENT </a></li>
                 </ul>
                 <div class="tab-content">
@@ -34,11 +36,295 @@
                                 <div class="card mb-4">
                                     <div class="card-body">
                                         <h5 class="mb-4">General Settings</h5>
+
+                                        <div class="col-md-6">
+                                            <h6>Account Settings</h6>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Enterprise number of subaccounts</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Accounts</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">User can delete own account</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h6>Contact Settings</h6>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Expire Contact Request After</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Days</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h6>Invoice Settings</h6>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Expire invoice after</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h6>Escrow Settings</h6>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Timeline for buyer to accept/reject delivery</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Timeline for seller to accept/reject refund</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Timeline to rate buyer/seller</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Timeline to negotiate dispute</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Arbitration timeline after dispute negotiation</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="contact_request_expiry" aria-describedby="contact_request_expiry">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="contact_request_expiry">Hours</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="auth" role="tabpanel" aria-labelledby="authentication">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Authentication Settings</h5>
                                         <div class="col-md-6">
                                             <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Password Minimum Length Face Auth</label>
+                                                <label class="col-7 col-form-label">Enable Face Auth</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Enable Finger Print</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Password Minimum Length</label>
                                                 <div class="col-3">
                                                     <input class="form-control" type="text" name="password_min" value="8">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Transaction Pin Length</label>
+                                                <div class="col-3">
+                                                    <input class="form-control" type="text" name="password_min" value="8">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Keep User Login History for</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Days</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="throttle" role="tabpanel" aria-labelledby="throttle-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Throttle Settings</h5>
+                                        <div class="col-md-6">
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">First Lockout After</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Attempts</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">First Lockout Timeframe</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Mins</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Require Challenge After</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Attempts</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Second Lockout Timeframe</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Mins</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Final Lockout After</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Attempts</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Final Lockout After</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="basic-addon2">Mins</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Account Settings</h5>
+                                        <div class="col-md-6">
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Enable Email Notification</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Enable SMS Notification</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Force SMS OTP</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Force Email OTP</label>
+                                                <div class="col-3">
+                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
+                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
+                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-1">
@@ -58,8 +344,28 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="communication" role="tabpanel" aria-labelledby="communication-tab">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <h5 class="mb-4">Chat Settings</h5>
+                                        <div class="col-md-6">
                                             <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Keep Chat logs for</label>
+                                                <label class="col-7 col-form-label">Keep Chat Back logs for</label>
                                                 <div class="col-3">
                                                     <div class="input-group mb-3">
                                                         <input type="text" class="form-control" aria-label="Chat logs" aria-describedby="chatlogs">
@@ -70,279 +376,51 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Face Auth</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Email Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable SMS Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Default Currency</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                        <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                                        <option value="TPZ">The Panic Zone</option>
-                                                        <option value="TTZ">The Twilight Zone</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Escrow Payment Terms</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Expire Invoice After</label>
+                                                <label class="col-7 col-form-label">Keep Chat Front logs for</label>
                                                 <div class="col-3">
                                                     <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                        <input type="text" class="form-control" aria-label="Chat logs" aria-describedby="chatlogs">
                                                         <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Days</span>
+                                                            <span class="input-group-text" id="chatlogs">Days</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Text Length Limit</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Chat logs" aria-describedby="chatlogs">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="chatlogs">Chars</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Voice note length</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Chat logs" aria-describedby="chatlogs">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="chatlogs">Secs</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-1">
+                                                <label class="col-7 col-form-label">Video Length</label>
+                                                <div class="col-3">
+                                                    <div class="input-group mb-3">
+                                                        <input type="text" class="form-control" aria-label="Chat logs" aria-describedby="chatlogs">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" id="chatlogs">Secs</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Auto Accept Invite</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="throttle" role="tabpanel" aria-labelledby="throttle-tab">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <h5 class="mb-4">Account Settings</h5>
-                                        <div class="col-md-6">
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Face Auth</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Email Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable SMS Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Default Currency</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                        <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                                        <option value="TPZ">The Panic Zone</option>
-                                                        <option value="TTZ">The Twilight Zone</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Escrow Payment Terms</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Expire Invoice After</label>
-                                                <div class="col-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Days</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Auto Accept Invite</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="notification" role="tabpanel" aria-labelledby="notification-tab">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card mb-4">
-                                    <div class="card-body">
-                                        <h5 class="mb-4">Account Settings</h5>
-                                        <div class="col-md-6">
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Face Auth</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Email Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable SMS Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Default Currency</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                        <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                                        <option value="TPZ">The Panic Zone</option>
-                                                        <option value="TTZ">The Twilight Zone</option>
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Escrow Payment Terms</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Expire Invoice After</label>
-                                                <div class="col-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Days</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Auto Accept Invite</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -355,10 +433,10 @@
                             <div class="col-12">
                                 <div class="card mb-4">
                                     <div class="card-body">
-                                        <h5 class="mb-4">Account Settings</h5>
+                                        <h5 class="mb-4">Payment Settings</h5>
                                         <div class="col-md-6">
                                             <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Face Auth</label>
+                                                <label class="col-7 col-form-label">Lock Wallet Globally</label>
                                                 <div class="col-3">
                                                     <div class="custom-switch custom-switch-primary-inverse mb-2">
                                                         <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
@@ -367,7 +445,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable Email Notification</label>
+                                                <label class="col-7 col-form-label">Enable BTC</label>
                                                 <div class="col-3">
                                                     <div class="custom-switch custom-switch-primary-inverse mb-2">
                                                         <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
@@ -375,67 +453,406 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Enable SMS Notification</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Default Currency</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                        <option value="WA">Washington</option>
-                                                        <option value="AZ">Arizona</option>
-                                                        <option value="CO">Colorado</option>
-                                                        <option value="ID">Idaho</option>
-                                                        <option value="MT">Montana</option>
-                                                        <option value="NE">Nebraska</option>
-                                                        <option value="NM">New Mexico</option>
-                                                        <option value="ND">North Dakota</option>
-                                                        <option value="UT">Utah</option>
-                                                        <option value="WY">Wyoming</option>
-                                                        <option value="TNOGZ" disabled="disabled">The No Optgroup Zone</option>
-                                                        <option value="TPZ">The Panic Zone</option>
-                                                        <option value="TTZ">The Twilight Zone</option>
-                                                    </select>
+                                            <div id="accordion">
+                                                <div class="border">
+                                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Naira</button>
+                                                    <div id="collapseOne" class="collapse" data-parent="#accordion" style="">
+                                                        <div class="p-4">
+                                                            <h6>Wallet Settings</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Threshold </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Naira</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Maximum </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Naira</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Escrow Payment Terms</label>
-                                                <div class="col-3">
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option value="CA">California</option>
-                                                        <option value="NV">Nevada</option>
-                                                        <option value="OR">Oregon</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Expire Invoice After</label>
-                                                <div class="col-3">
-                                                    <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon2">Days</span>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Bank Deposit Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Naira</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Wallet Withdrawal Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Naira</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Invoice Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to sender</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to receiver</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Escrow Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Escrow Charges</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Dispute Resolution Fees</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Naira</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                                <div class="border">
+                                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Dollars</button>
+                                                    <div id="collapseTwo" class="collapse" data-parent="#accordion" style="">
+                                                        <div class="p-4">
+                                                            <h6>Wallet Settings</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Threshold </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Dollar</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Maximum </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Dollar</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
-                                            <div class="form-group row mb-1">
-                                                <label class="col-7 col-form-label">Auto Accept Invite</label>
-                                                <div class="col-3">
-                                                    <div class="custom-switch custom-switch-primary-inverse mb-2">
-                                                        <input class="custom-switch-input" id="switch3" type="checkbox" checked="checked">
-                                                        <label class="custom-switch-btn" for="switch3"></label>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Bank Deposit Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Dollar</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Wallet Withdrawal Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Dollar</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Invoice Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to sender</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to receiver</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Escrow Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Escrow Charges</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Dispute Resolution Fees</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Dollar</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="border">
+                                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Euro</button>
+                                                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                                        <div class="p-4">
+                                                            <h6>Wallet Settings</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Threshold </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Maximum </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Bank Deposit Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Wallet Withdrawal Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Invoice Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to sender</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to receiver</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Escrow Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Escrow Charges</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Dispute Resolution Fees</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="border">
+                                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Pounds</button>
+                                                    <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                                        <div class="p-4">
+                                                            <h6>Wallet Settings</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Threshold </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Pounds</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Withdrawal Maximum </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Pounds</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Bank Deposit Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Pounds</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Wallet Withdrawal Charges </label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Pounds</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Invoice Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to sender</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Invoice Charges to receiver</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h6>Escrow Charges</h6>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Escrow Charges</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row mb-1">
+                                                                <label class="col-7 col-form-label">Dispute Resolution Fees</label>
+                                                                <div class="col-3">
+                                                                    <div class="input-group mb-3">
+                                                                        <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                                        <div class="input-group-append">
+                                                                            <span class="input-group-text" id="basic-addon2">Euro</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -3,7 +3,8 @@ function loadStyle(e, t) {
         if (document.styleSheets[o].href == e) return;
     var a = document.getElementsByTagName("head")[0],
         r = document.createElement("link");
-        u = window.location.origin;
+        // u = window.location.origin;
+        u = 'http://localhost/pinvoice/public';
     r.rel = "stylesheet";
     r.type = "text/css";
     r.href = u+e;

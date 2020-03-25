@@ -15,9 +15,12 @@ class CreateDisputesTable extends Migration
     {
         Schema::create('disputes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('assetable_id');
+            $table->string('assetable_type');
             $table->string('message');
+            $table->string('type'); //complaint, judgment
             $table->unsignedBigInteger('written_by');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

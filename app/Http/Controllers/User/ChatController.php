@@ -15,25 +15,28 @@ class ChatController extends Controller
         $this->middleware('auth');
     }
     public function index(Request $request){
-        $user = Auth::user();
-        $conversations = Conversation::where('invoice_id',$request->invoice)->get();
-        Conversation::where('invoice_id',$request->invoice)->where('user_id','!=',$user->id)->update(['status'=> 'read']);
-        $invoice = Invoice::find($request->invoice);
-        if($invoice->status == 'closed')
-            return redirect()->back();
-        if($invoice->seller == $user->id && $conversations->isEmpty())
-            return redirect()->back();
-        return view('user.chat',compact('invoice','conversations'));
+        // $user = Auth::user();
+        // $conversations = Conversation::where('invoice_id',$request->invoice)->get();
+        // Conversation::where('invoice_id',$request->invoice)->where('user_id','!=',$user->id)->update(['status'=> 'read']);
+        // $invoice = Invoice::find($request->invoice);
+        // if($invoice->status == 'closed')
+        //     return redirect()->back();
+        // if($invoice->seller == $user->id && $conversations->isEmpty())
+        //     return redirect()->back();
+        // return view('user.chat',compact('invoice','conversations'));
     }
     public function sendMessage(Request $request){
         $conversation = new Conversation;
-        $conversation->invoice_id = $request->invoice;
+        $conversation->assetable_type = ($request->type == 'invoice')? 'App\Invoice': 'App\Escrow';
+        $conversation->assetable_id = $request->id;
         $conversation->user_id = Auth::id();
         $conversation->format = 'text';
         $conversation->body = $request->message;
         $conversation->save();
-        return view('user.conversation',['conversation'=> $conversation]);
+        return view('user.chat.singlemessage',['message'=> $conversation]);
     }
+
+    //add this to converse and append
     public function sendFile(Request $request){
         //dd($request->all());
         $fileName = $request->file('file')->getClientOriginalName().$request->file('file')->getClientOriginalExtension();
@@ -46,8 +49,10 @@ class ChatController extends Controller
         $conversation->body = $fileName;
         $conversation->save();
 
-        return view('user.conversation',['conversation'=> $conversation]);
+        return view('user.chat.singlemessage',['message'=> $conversation]);
     }
+
+    //add this to converse and append
     public function sendCaptured(Request $request){
         $fileName = time().'.jpg';
         $fileType = 'jpg';
@@ -58,16 +63,25 @@ class ChatController extends Controller
         $conversation->format = $fileType;
         $conversation->body = $fileName;
         $conversation->save();
-
-        return view('user.conversation',['conversation'=> $conversation]);
+        return view('user.chat.singlemessage',['message'=> $conversation]);
     }
 
 
+    // get new messages
     public function getMessage(Request $request){
-        $conversation = Conversation::where('invoice_id',$request->invoice)->where('user_id','!=',Auth::id())->where('status','sent')->first();
+        $conversation = Conversation::where('assetable_type','App\Invoice')
+        ->where('assetable_id',$request->id)
+        ->where('user_id','!=',Auth::id())
+        ->where('status',false)
+        ->orderBy('created_at','ASC')
+        ->first();
         if(blank($conversation))
         return response()->json(403);
-        else
-        return view('user.conversation',['conversation'=> $conversation]);
+        else{
+            $conversation->status = true;
+            $conversation->save();
+            return view('user.chat.singlemessage',['message'=> $conversation]);
+        }
+
     }
 }

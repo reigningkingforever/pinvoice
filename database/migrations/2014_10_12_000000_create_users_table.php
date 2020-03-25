@@ -28,7 +28,6 @@ class CreateUsersTable extends Migration
             $table->string('place')->nullable();
             $table->string('about')->nullable();
             $table->date('dob')->nullable();
-
             $table->unsignedBigInteger('currency_id')->nullable();
             $table->unsignedBigInteger('language_id')->nullable();
             $table->boolean('face_auth')->default(0);

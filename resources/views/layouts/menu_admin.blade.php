@@ -153,6 +153,7 @@
                 <li><a href="#support"><i class="simple-icon-support"></i> Support</a></li>
                 <li><a href="#users"><i class="simple-icon-people"></i> Users</a></li>
                 <li><a href="#payment"><i class="iconsminds-coins"></i> Payment</a></li>
+                <li><a href="{{route('admin.partners')}}"><i class="simple-icon-organization"></i> Partners</a></li>
 
             </ul>
         </div>

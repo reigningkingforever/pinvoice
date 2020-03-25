@@ -45,6 +45,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function() {
 
     Route::get('support','TicketController@index')->name('admin.tickets');
     Route::get('support/ticket','TicketController@details')->name('admin.ticketdetails');
+    Route::get('partners','PartnerController@index')->name('admin.partners');
 });
 
 Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterprise']], function () {
@@ -68,11 +69,14 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
     Route::post('blockcontact','ContactController@block');
 
     Route::get('invoice','InvoiceController@index')->name('invoice');
-    Route::get('escrow','InvoiceController@index')->name('escrow');
+    Route::post('invoice/showconversation','InvoiceController@showconversation')->name('invoiceconversation');
+    Route::get('escrow','EscrowController@index')->name('escrow');
     Route::get('payment','PaymentController@index')->name('payment');
     Route::post('chat','ChatController@index')->name('chat');
+
+
     Route::post('chat/sendMessage','ChatController@sendMessage')->name('chatsendmessage');
-    Route::post('chat/getMessage','ChatController@getMessage')->name('chatget');
+    Route::post('chat/getMessage','ChatController@getMessage')->name('chatgetmessages');
     Route::post('chat/sendFile','ChatController@sendFile')->name('chatsendfile');
     Route::post('chat/sendCaptured','ChatController@sendCaptured')->name('chatsendCaptured');
 

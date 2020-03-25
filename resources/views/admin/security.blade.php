@@ -60,7 +60,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($blacklists->whereNotNull('ipAddress') as $blacklist)
+                                        @forelse ($blacklists->where('ipAddress','!=',null) as $blacklist)
                                             <tr>
                                                 <td><a href="#" class="text-primary">{{$blacklist->ipAddress}}</a></td>
                                                 <td>{{date_format($blacklist->created_at,'M d,Y')}}</td>
@@ -91,7 +91,7 @@
                     <div class="tab-pane fade" id="ban" role="tabpanel" aria-labelledby="ban-tab">
                         <div class="row">
                             <div class="col-12">
-                                <h5>Use Template</h5>
+                                <h5>Banned</h5>
                                 <table class="table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
@@ -105,7 +105,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($blacklists->whereNotNull('user_id') as $ban)
+                                        @forelse ($blacklists->where('user_id','!=',null) as $ban)
                                         <tr>
                                             <td>{{date_format($ban->created_at,'M d,Y')}}</td>
                                             <td>{{$ban->user->name}}</td>

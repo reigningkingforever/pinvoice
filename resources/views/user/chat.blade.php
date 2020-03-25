@@ -210,6 +210,10 @@
                                     @else
                                     <a href="{{asset('storage/chat/'.$conversation->body)}}" target="_blank">{{$conversation->body}}</a>
                                     @endif
+                                    <div class="position-absolute pt-1 pr-2 r-0 tick text-extra-small text-muted" style="bottom: 1px;">
+                                        12:45
+                                        <span class="text-extra-small text-muted"><i class="fas fa-check-double"></i></span>
+                                    </div>
                                 </div>
                             </div>
                             @if($conversation->user_id == Auth::id())
@@ -527,12 +531,13 @@
             </div>
         <!-- emojis dropdown -->
         <input id="typetext" class="form-control flex-grow-1" type="text" placeholder="Say something..." onkeydown="sendMessage(this)">
+            <!-- buttons -->
         <div>
             <div class="d-inline-flex dropup">
                 <button type="button" class="btn btn-outline-primary icon-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="simple-icon-paper-clip"></i>
                 </button>
-                <div class="dropdown-menu" style="min-width: unset !important;">
+                <div class="dropdown-menu " style="min-width: unset !important;">
                     <a class="dropdown-item" data-toggle="modal" data-target="#audioRecord"><i class="simple-icon-microphone h3"></i></a>
                     <a class="dropdown-item" href="#" id="startcamera"><i class="simple-icon-camera h3"></i></a>
                     <a class="dropdown-item" href="#"><i class="iconsminds-video-tripod h3"></i></a>
