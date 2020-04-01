@@ -1,52 +1,3 @@
-@extends('layouts.user')
-@section('head')
-<style>
-    video {
-      width: 500px;
-      height: 500px;
-  }
-</style>
-@endsection
-@section('main')
-<main>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h1>Blank Page</h1>
-                <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                    <ol class="breadcrumb pt-0">
-                        <li class="breadcrumb-item">
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">Library</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
-                    </ol>
-                </nav>
-                <div class="separator mb-5">    </div>
-                <button id="btn-start-recording">Start Audio Recording</button>
-                <button id="btn-stop-recording" disabled>Stop Audio Recording</button>
-                <button id="btn-release-microphone" disabled>Release Microphone</button>
-                <button id="btn-download-recording" disabled>Download</button>
-                <hr>
-
-                <div><audio controls autoplay playsinline></audio></div>
-
-                <hr>
-                <button id="btn-start-video-recording">Start Video Recording</button>
-                <button id="btn-stop-video-recording" disabled>Stop Video Recording</button>
-
-                <hr>
-                <video controls autoplay playsinline></video>
-                <div id="my_camera1"></div>
-            </div>
-        </div>
-    </div>
-</main>
-@endsection
-@push('scripts')
-<script src="{{asset('plugins/recorder/js/RecordRTC.js')}}"></script>
 {{-- audio recording --}}
 <script>
     var audio = document.querySelector('audio');
@@ -113,7 +64,7 @@
 
         audio.play();
 
-        btnDownloadRecording.disabled = false;
+        btnUploadRecording.disabled = false;
 
         if(isSafari) {
             click(btnReleaseMicrophone);
@@ -129,7 +80,8 @@
     var btnStartRecording = document.getElementById('btn-start-recording');
     var btnStopRecording = document.getElementById('btn-stop-recording');
     var btnReleaseMicrophone = document.querySelector('#btn-release-microphone');
-    var btnDownloadRecording = document.getElementById('btn-download-recording');
+    // var btnDownloadRecording = document.getElementById('btn-download-recording');
+    var btnUploadRecording = document.getElementById('btn-upload-recording');
 
     btnStartRecording.onclick = function() {
         this.disabled = true;
@@ -195,7 +147,7 @@
         recorder.startRecording();
 
         btnStopRecording.disabled = false;
-        btnDownloadRecording.disabled = true;
+        btnUploadRecording.disabled = true;
     };
 
     btnStopRecording.onclick = function() {
@@ -217,22 +169,33 @@
         }
     };
 
-    btnDownloadRecording.onclick = function() {
+    // btnDownloadRecording.onclick = function() {
+    //     this.disabled = true;
+    //     if(!recorder || !recorder.getBlob()) return;
+
+    //     if(isSafari) {
+    //         recorder.getDataURL(function(dataURL) {
+    //             SaveToDisk(dataURL, getFileName('mp3'));
+    //         });
+    //         return;
+    //     }
+
+    //     var blob = recorder.getBlob();
+    //     var file = new File([blob], getFileName('mp3'), {
+    //         type: 'audio/mp3'
+    //     });
+    //     invokeSaveAsDialog(file);
+    // };
+
+    btnUploadRecording.onclick = function() {
         this.disabled = true;
         if(!recorder || !recorder.getBlob()) return;
-
-        if(isSafari) {
-            recorder.getDataURL(function(dataURL) {
-                SaveToDisk(dataURL, getFileName('mp3'));
-            });
-            return;
-        }
-
         var blob = recorder.getBlob();
         var file = new File([blob], getFileName('mp3'), {
             type: 'audio/mp3'
         });
-        invokeSaveAsDialog(file);
+        sendAudio(file);
+
     };
 
     function click(el) {
@@ -293,62 +256,3 @@
         }
     }
 </script>
-{{-- video recording --}}
-<script>
-    var video = document.querySelector('video');
-
-    function captureCamera(callback) {
-        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(function(camera) {
-            callback(camera);
-        }).catch(function(error) {
-            alert('Unable to capture your camera. Please check console logs.');
-            console.error(error);
-        });
-    }
-
-    function stopRecordingCallback() {
-        video.src = video.srcObject = null;
-        video.muted = false;
-        video.volume = 1;
-        video.src = URL.createObjectURL(recorder.getBlob());
-
-        recorder.camera.stop();
-        recorder.destroy();
-        recorder = null;
-    }
-
-    var recorder; // globally accessible
-
-    document.getElementById('btn-start-video-recording').onclick = function() {
-        this.disabled = true;
-        captureCamera(function(camera) {
-            video.muted = true;
-            video.volume = 0;
-            video.srcObject = camera;
-
-            var myOptions = {
-                type: 'video',
-                width: 320,
-                height: 240
-            };
-            recorder = RecordRTC(camera, myOptions);
-            // var recordingDuration = 5000;
-            // recorder.setRecordingDuration(recordingDuration).onRecordingStopped(stopRecordingCallback);
-
-            recorder.startRecording();
-
-            // release camera on stopRecording
-            recorder.camera = camera;
-
-            document.getElementById('btn-stop-video-recording').disabled = false;
-        });
-    };
-
-    document.getElementById('btn-stop-video-recording').onclick = function() {
-        this.disabled = true;
-        recorder.stopRecording(stopRecordingCallback);
-        document.getElementById('btn-start-video-recording').disabled = false;
-    };
-</script>
-
-@endpush

@@ -39,26 +39,57 @@ class ChatController extends Controller
     //add this to converse and append
     public function sendFile(Request $request){
         //dd($request->all());
-        $fileName = $request->file('file')->getClientOriginalName().$request->file('file')->getClientOriginalExtension();
+        $fileName = $request->file('file')->getClientOriginalName();
         $fileType = $request->file('file')->getClientOriginalExtension();
         $request->file('file')->storeAs('public/chat',$fileName);
         $conversation = new Conversation;
-        $conversation->invoice_id = $request->invoice;
+        $conversation->assetable_type = ($request->type == 'invoice')? 'App\Invoice': 'App\Escrow';
+        $conversation->assetable_id = $request->id;
         $conversation->user_id = Auth::id();
         $conversation->format = $fileType;
         $conversation->body = $fileName;
         $conversation->save();
-
         return view('user.chat.singlemessage',['message'=> $conversation]);
     }
 
     //add this to converse and append
     public function sendCaptured(Request $request){
-        $fileName = time().'.jpg';
-        $fileType = 'jpg';
-        file_put_contents('storage/chat/'.$fileName, base64_decode($request->image1));
+        $fileName = $request->file('file')->getClientOriginalName();
+        $fileType = $request->file('file')->getClientOriginalExtension();
+        $request->file('file')->storeAs('public/chat',$fileName);
         $conversation = new Conversation;
-        $conversation->invoice_id = $request->invoice;
+        $conversation->assetable_type = ($request->type == 'invoice')? 'App\Invoice': 'App\Escrow';
+        $conversation->assetable_id = $request->id;
+        $conversation->user_id = Auth::id();
+        $conversation->format = $fileType;
+        $conversation->body = $fileName;
+        $conversation->save();
+        return view('user.chat.singlemessage',['message'=> $conversation]);
+    }
+    public function sendAudio(Request $request){
+        // dd($request->file);
+        $fileName = $request->file('file')->getClientOriginalName();
+        $fileType = $request->file('file')->getClientOriginalExtension();
+        $request->file('file')->storeAs('public/chat',$fileName);
+        $conversation = new Conversation;
+        $conversation->assetable_type = ($request->type == 'invoice')? 'App\Invoice': 'App\Escrow';
+        $conversation->assetable_id = $request->id;
+        $conversation->user_id = Auth::id();
+        $conversation->format = $fileType;
+        $conversation->body = $fileName;
+        $conversation->save();
+        return view('user.chat.singlemessage',['message'=> $conversation]);
+    }
+
+    public function sendVideo(Request $request){
+        // dd($request->file);
+        $fileName = $request->file('file')->getClientOriginalName();
+        $fileType = $request->file('file')->getClientOriginalExtension();
+        // file_put_contents('storage/chat/'.$fileName, base64_decode($request->file));
+        $request->file('file')->storeAs('public/chat',$fileName);
+        $conversation = new Conversation;
+        $conversation->assetable_type = ($request->type == 'invoice')? 'App\Invoice': 'App\Escrow';
+        $conversation->assetable_id = $request->id;
         $conversation->user_id = Auth::id();
         $conversation->format = $fileType;
         $conversation->body = $fileName;

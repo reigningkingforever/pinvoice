@@ -95,7 +95,12 @@
     .intercom-composer-popover.active{
         bottom: 340px !important;
     }
-    #myAudio {
-      background-color: #9FD6BA;
+    video {
+      width: 100%;
+      height: auto;
+  }
+
+  .draw{
+    transform: translateX(0);
   }
 </style>

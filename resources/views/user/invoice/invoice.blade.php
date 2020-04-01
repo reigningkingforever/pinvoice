@@ -3,10 +3,6 @@
 <link rel="stylesheet" href="{{asset('css/vendor/select2.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/vendor/select2-bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/emoji.css')}}">
-<link href="{{asset('plugins/recorder/css/video-js.min.css')}}" rel="stylesheet">
-<link href="{{asset('plugins/recorder/css/videojs.wavesurfer.min.css')}}" rel="stylesheet">
-<link href="{{asset('plugins/recorder/css/videojs.record.min.css')}}" rel="stylesheet">
-<link href="{{asset('plugins/recorder/css/examples.css')}}" rel="stylesheet">
 @include('user.invoice.invoice_css')
 @endsection
 @section('main')
@@ -807,11 +803,13 @@
                     <h5 class="calling-user-name">
                         Click Record to begin recording<span class="calling">Recording...</span>
                     </h5> --}}
-                    <audio id="myAudio" class="video-js vjs-default-skin"></audio>
-                    <div id="controls">
-                        <button id="recordButton" class="btn default">Record</button>
-                        <button id="pauseButton" disabled class="btn default">Pause</button>
-                        <button id="stopButton" disabled class="btn default">Stop</button>
+                    <div class="d-flex justify-content-center"><audio controls autoplay playsinline></audio></div>
+                    <div id="controls" class="d-flex justify-content-around mt-1">
+                        <button id="btn-start-recording" class="btn btn-primary">Start</button>
+                        <button id="btn-stop-recording" class="btn btn-danger" disabled>Stop</button>
+                        <button id="btn-release-microphone" disabled style="display:none">Release Microphone</button>
+                        <button id="btn-upload-recording" class="btn btn-success" disabled>Send</button>
+                        <button data-dismiss="modal" class="btn btn-danger">Discard</button>
                    </div>
                 </div>
             </div>
@@ -824,20 +822,19 @@
             <div class="modal-body">
 
                 <div class="call-container">
-                    <div class="current-user">
-                        <img src="{{asset('img/profile-pic-l.jpg')}}" alt="Avatar">
+                    {{-- <div class="current-user">
+                        <i class="simple-icon-microphone h3"></i>
                     </div>
                     <h5 class="calling-user-name">
-                        Amy Hood <span class="calling">Video Recording...</span>
-                    </h5>
-                    <div class="calling-btns">
-                        <button class="btn btn-danger" data-dismiss="modal">
-                            <i class="fa fa-times"></i>
-                        </button>
-                        <button class="btn btn-success" style="padding:6px 2px 0px 0px;">
-                            <i class="simple-icon-call-out"></i>
-                        </button>
-                    </div>
+                        Click Record to begin recording<span class="calling">Recording...</span>
+                    </h5> --}}
+                    <div class="d-flex justify-content-center"><video controls autoplay playsinline></video></div>
+                    <div id="controls" class="d-flex justify-content-around mt-1">
+                        <button id="btn-start-video-recording" class="btn btn-primary">Start</button>
+                        <button id="btn-stop-video-recording" class="btn btn-danger" disabled>Stop </button>
+                        <button id="btn-upload-video" class="btn btn-success" disabled>Send</button>
+                        <button data-dismiss="modal" class="btn btn-danger">Discard</button>
+                   </div>
                 </div>
             </div>
         </div>
@@ -848,18 +845,18 @@
         <div class="modal-content">
             <div class="modal-body">
 
-                <div class="call-container">
+                <div id="capturecontainer" class="d-flex flex-column justify-content-center" style="width:100%">
 
                     <h5 class="calling-user-name">
                          <span class="calling">Image Capturing...</span>
                     </h5>
-                    <div id="my_camera1"></div>
+                    <div id="my_camera1" class="d-flex flex-column justify-content-center"></div>
                     <button id="takepicture" type='button' class="btn btn-primary mt-2" onClick="take_snapshot1()">Take Snapshot</button>
                     <input type="hidden" name="image1" id="image1">
-                    <div>
+                    <div class="d-flex justify-content-around">
                         <button type='button' class="retakepicture btn btn-warning mt-2" onClick="retake()">Retake Snapshot</button>
                         <button type="button" class="retakepicture btn btn-success mt-2" id="sendCapture">
-                            <span>Send</span><i class="fa fa-arrow-right ml-2"></i>
+                            <span>Send Image</span>
                         </button>
                     </div>
                 </div>
@@ -874,14 +871,8 @@
 <script src="{{asset('js/vendor/Sortable.js')}}"></script>
 <script src="{{asset('js/vendor/select2.full.js')}}"></script>
 <script src="{{asset('js/emoji.js')}}"></script>
-<script src="{{asset('plugins/recorder/js/video.min.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/RecordRTC.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/adapter.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/wavesurfer.min.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/wavesurfer.microphone.min.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/videojs.wavesurfer.min.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/videojs.record.min.js')}}"></script>
-  <script src="{{asset('plugins/recorder/js/browser-workarounds.js')}}"></script>
+<script src="{{asset('plugins/recorder/js/RecordRTC.js')}}"></script>
+
 <script>
     $(document).ready(function(){
         $('#receivedinvoice').hide();
@@ -900,8 +891,12 @@
         $('#sentinvoice').fadeIn();
     });
 </script>
+{{-- get recent messages --}}
 <script>
     $(document).on('click','.recent',function(){
+        $(".app-menu").toggleClass('draw');
+
+        $(".app-menu").toggleClass('shown');
         id = $(this).attr('id');
         $.ajax({
             type:'POST',
@@ -912,35 +907,34 @@
             },
             success:function(data) {
                 $('#recentmessages').replaceWith(data);
-
             },
             error: function (data, textStatus, errorThrown) {
             console.log(data);
             },
         });
 
-        let delay = 5000;
-        var count = 0;
-        let timerId = setTimeout(function request() {
-            $.ajax({
-                type:'POST',
-                    url:'{{ route("chatgetmessages") }}',
-                    data:{
-                        '_token' : $('meta[name="csrf-token"]').attr('content'),
-                        'id': invoice_id,
-                        'type': "invoice"
-                    },
-                    success:function(data) {
-                        if(data != 403)
-                        $('#converse').append(data);
-                    },
-                    error: function (data, textStatus, errorThrown) {
-                    console.log(data);
-                    delay *= 2;
-                    },
-            });
-        timerId = setTimeout(request, delay);
-        }, delay);
+        // let delay = 5000;
+        // var count = 0;
+        // let timerId = setTimeout(function request() {
+        //     $.ajax({
+        //         type:'POST',
+        //             url:'{{ route("chatgetmessages") }}',
+        //             data:{
+        //                 '_token' : $('meta[name="csrf-token"]').attr('content'),
+        //                 'id': invoice_id,
+        //                 'type': "invoice"
+        //             },
+        //             success:function(data) {
+        //                 if(data != 403)
+        //                 $('#converse').append(data);
+        //             },
+        //             error: function (data, textStatus, errorThrown) {
+        //             console.log(data);
+        //             delay *= 2;
+        //             },
+        //     });
+        // timerId = setTimeout(request, delay);
+        // }, delay);
 
     });
 </script>
@@ -969,80 +963,72 @@
     }
 
 </script>
+@include('user.chat.uploadaudio')
 <script>
     $(document).on('click','#startaudio',function(){
         $("#audioRecord").modal()
-        var options = {
-            controls: true,
-            width: 440,
-            height: 300,
-            fluid: false,
-            plugins: {
-                wavesurfer: {
-                    src: 'live',
-                    waveColor: '#36393b',
-                    progressColor: 'black',
-                    debug: true,
-                    cursorWidth: 1,
-                    msDisplayMax: 20,
-                    hideScrollbar: true
-                },
-                record: {
-                    audio: true,
-                    video: false,
-                    maxLength: 20,
-                    debug: true
-                }
-            }
-        };
-
-            // apply audio workarounds for certain browsers
-            applyAudioWorkaround();
-
-        // create player
-        var player = videojs('myAudio', options, function() {
-            // print version information at startup
-            var msg = 'Using video.js ' + videojs.VERSION +
-                ' with videojs-record ' + videojs.getPluginVersion('record') +
-                ', videojs-wavesurfer ' + videojs.getPluginVersion('wavesurfer') +
-                ', wavesurfer.js ' + WaveSurfer.VERSION + ' and recordrtc ' +
-                RecordRTC.version;
-            videojs.log(msg);
-        });
-
-        // error handling
-        player.on('deviceError', function() {
-            console.log('device error:', player.deviceErrorCode);
-        });
-
-        player.on('error', function(element, error) {
-            console.error(error);
-        });
-
-        // user clicked the record button and started recording
-        player.on('startRecord', function() {
-            console.log('started recording!');
-        });
-
-        // user completed recording and stream is available
-        player.on('finishRecord', function() {
-            // the blob object contains the recorded data that
-            // can be downloaded by the user, stored on server etc.
-            console.log('finished recording: ', player.recordedData);
-        });
     });
-
-    $('#startcamera').click(function(){
-        $("#imageCapture").modal()
-        Webcam.attach( '#my_camera1' );
-    });
-    $(function(){
-        $("#upload_link").on('click', function(e){
-            e.preventDefault();
-            $("#uploadfile:hidden").trigger('click');
+    function sendAudio(adata){
+        var invoice_id = $('[name="invoice"]').val();
+        var formData = new FormData();
+        formData.append('file', adata);
+        formData.append('type', 'invoice');
+        formData.append('id', invoice_id);
+        console.log('upload recording ' + adata + ' to server');
+        // start upload
+        $.ajax({
+            type:'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'{{ route("chatsendAudio") }}',
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success:function(data) {
+                $('#converse').append(data);
+                $("#audioRecord").modal('hide');
+            },
+            error: function (data, textStatus, errorThrown) {
+            console.log(data);
+            },
         });
-
-
-    });
+    }
 </script>
+@include('user.chat.uploadvideo')
+<script>
+    $(document).on('click','#startvideo',function(){
+        $("#videoRecord").modal()
+    });
+    function sendVideo(vdata){
+        var invoice_id = $('[name="invoice"]').val();
+        var formData = new FormData();
+        formData.append('file', vdata);
+        formData.append('type', 'invoice');
+        formData.append('id', invoice_id);
+        console.log('upload recording ' + vdata + ' to server');
+        // start upload
+        $.ajax({
+            type:'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'{{ route("chatsendVideo") }}',
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success:function(data) {
+                $('#converse').append(data);
+                $("#videoRecord").modal('hide');
+
+            },
+            error: function (data, textStatus, errorThrown) {
+            console.log(data);
+            },
+        });
+    }
+</script>
+@include('user.chat.captureimage')
+@include('user.chat.uploadfile')
+
 @endpush

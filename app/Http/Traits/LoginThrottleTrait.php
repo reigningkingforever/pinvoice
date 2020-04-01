@@ -37,7 +37,7 @@ trait LoginThrottleTrait
         $failedLogin->ipAddress = $request->ip();
         $failedLogin->username = $request->email;
         $user = User::where('email',$request->email)->orWhere('mobile',$request->email)->first();
-        if($user->count() != 0)
+        if($user)
         $failedLogin->user_id = $user->id;
         $failedLogin->save();
     }

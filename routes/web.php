@@ -79,6 +79,8 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
     Route::post('chat/getMessage','ChatController@getMessage')->name('chatgetmessages');
     Route::post('chat/sendFile','ChatController@sendFile')->name('chatsendfile');
     Route::post('chat/sendCaptured','ChatController@sendCaptured')->name('chatsendCaptured');
+    Route::post('chat/sendAudio','ChatController@sendAudio')->name('chatsendAudio');
+    Route::post('chat/sendVideo','ChatController@sendVideo')->name('chatsendVideo');
 
     Route::get('support','SupportController@index')->name('support');
     Route::post('support/new','SupportController@newSupport')->name('newsupport');

@@ -16,8 +16,8 @@
     <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
         <button type="button" id="emoji-picker" class="btn btn-light default"><i class="glyph-icon simple-icon-emotsmile"></i></button>
         <button type="button" id="startaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-        <button type="button" data-toggle="modal" data-target="#imageCapture" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-        <button type="button" data-toggle="modal" data-target="#videoRecord" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+        <button type="button" id="startcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
+        <button type="button" id="startvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
         <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
         <input id="uploadfile" type="file" name="chatfile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
     </div>

@@ -35,9 +35,9 @@
                                 </p>
                                 @enderror
                             </label>
-                            {{-- <div class="d-flex justify-content-between align-items-center">
-                                {!! no_captcha()->display()->toHtml() !!}
-                            </div> --}}
+                            <div class="d-flex justify-content-between align-items-center">
+                                {{-- {!! no_captcha()->display()->toHtml() !!} --}}
+                            </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('password.request') }}">Forget password?</a>
                                 <button class="btn btn-primary btn-lg btn-shadow" type="submit">LOGIN</button>

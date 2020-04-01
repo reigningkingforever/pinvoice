@@ -686,22 +686,22 @@
             formData.append('file', $('#uploadfile')[0].files[0]);
             formData.append('invoice', @JSON($invoice->id));
             $.ajax({
-            type:'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:'/chat/sendFile',
-            data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
-            success:function(data) {
-                $("#typetext").val('');
-                $('#converse').append(data);
-            },
-            error: function (data, textStatus, errorThrown) {
-            console.log(data);
-            },
-        });
+                type:'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:'/chat/sendFile',
+                data: formData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                success:function(data) {
+                    $("#typetext").val('');
+                    $('#converse').append(data);
+                },
+                error: function (data, textStatus, errorThrown) {
+                console.log(data);
+                },
+            });
             $('#uploadfile').val('');// set the value to empty of myfile control.
         });
     });

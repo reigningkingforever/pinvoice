@@ -31,6 +31,8 @@ escrow table
 ticket table
 ticket_message
 
+add page visibility change to chat
+
 
 
 

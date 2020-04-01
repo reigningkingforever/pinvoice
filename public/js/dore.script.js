@@ -207,8 +207,8 @@ function(e) {
             a.hasClass("show") || (a.collapse("toggle"), t.find(".rotate-icon-click").toggleClass("rotate"))
         }
         if (T($(".main-menu ul li.active a").attr("href")), $(".app-menu-button").on("click", (function(e) {
-                e.preventDefault(), $(".app-menu").hasClass("shown") ? $(".app-menu").removeClass("shown") : $(".app-menu").addClass("shown")
-            })), $(document).on("click", (function(e) {
+                e.preventDefault(), ($(".app-menu").hasClass("shown") || $(".app-menu").hasClass("draw"))  ? $(".app-menu").removeClass("shown draw") : $(".app-menu").addClass("shown")
+            }) ), $(document).on("click", (function(e) {
                 $(e.target).parents().hasClass("app-menu") || $(e.target).parents().hasClass("app-menu-button") || $(e.target).hasClass("app-menu-button") || $(e.target).hasClass("app-menu") || $(".app-menu").hasClass("shown") && $(".app-menu").removeClass("shown")
             })), $(document).on("click", ".question .view-button", (function() {
                 E($(this))
