@@ -11,6 +11,7 @@ class Visitor extends Model
         'url',
         'country',
         'state',
+        'city',
         'user_id',
         'device_type',
         'device_name',

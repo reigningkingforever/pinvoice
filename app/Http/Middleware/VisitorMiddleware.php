@@ -36,9 +36,10 @@ class VisitorMiddleware
                 $visitor = Visitor::firstOrNew(
                     ['ip_address' => Agent::ip(),
                     'url' => Agent::server('httpHost').Agent::server('requestUri'),
-                    'country'=> $info->country,
-                    'state'=> $info->state_name,
-                    'user_id'=> $request->user() ? $request->user()->id : 0,
+                    'country'=> $place->country_name,
+                    'state'=> $place->region,
+                    'city'=> $place->city,
+                    'user_id'=> request()->user() ? request()->user()->id : 0,
 
                     'device_type'=> Agent::device()->getType(),
                     'device_name'=> Agent::device('family').','.Agent::device('model'),
