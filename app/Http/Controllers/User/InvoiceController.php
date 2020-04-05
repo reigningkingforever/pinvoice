@@ -22,6 +22,9 @@ class InvoiceController extends Controller
         // $conversation = [];
         return view('user.invoice.invoice',compact('sentInvoice','receivedInvoice','recentMessages'));
     }
+    public function create(){
+        return view('user.invoice.create');
+    }
 
     public function showConversation(Request $request){
         $conversation = Conversation::where('assetable_type','App\Invoice')->where('assetable_id',$request->invoice_id)->orderBy('created_at','ASC')->get();

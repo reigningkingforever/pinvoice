@@ -1,5 +1,3 @@
-
-
 [upload funds
 withdraw funds
 transfer funds] -> should I implement flutter?
@@ -7,31 +5,20 @@ transfer funds] -> should I implement flutter?
 how do we go about BTC ?
 
 
-
 ENTERPRISE
 ROLES
 
 
-1. Integrate Sound and Video Library
 3. if new device, send OTP to email/or phone
-5. add captcha to login  -- downgrade laravel to make it happen
 6. Enterprise permissions
 7. Add Reset profile password (for Enterprise admin) to Reset password page
-8. add currency to profile settings
 9. verify mobile...in profile, when you add phone number, you must verify it, then you can login with it
-10.visitors,
+10. visitors,
 a1.Staff permissions (ability to send invoice, make payment, add invoice template, manage company profile, etc)
 a2.get notified of staff activities
 a3.create invoice and send, check if user is in contact and is on...change contact table for many to many
 a4.role middleware
-
-a6. Support.
-dispute table
-escrow table
-ticket table
-ticket_message
-
-add page visibility change to chat
+add search to chat
 
 
 

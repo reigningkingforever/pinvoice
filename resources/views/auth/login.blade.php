@@ -35,8 +35,13 @@
                                 </p>
                                 @enderror
                             </label>
-                            <div class="d-flex justify-content-between align-items-center">
-                                {{-- {!! no_captcha()->display()->toHtml() !!} --}}
+                            <div class="d-flex justify-content-between flex-column mb-1">
+                                @error('g-recaptcha-response')
+                                    <span class="invalid-feedback d-block">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                {!! NoCaptcha::display() !!}
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="{{ route('password.request') }}">Forget password?</a>
@@ -49,5 +54,6 @@
         </div>
     </div>
 </main>
-{{-- {!! no_captcha()->script() !!} --}}
+
+{!! NoCaptcha::renderJs() !!}
 @endsection

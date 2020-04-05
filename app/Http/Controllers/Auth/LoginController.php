@@ -58,6 +58,14 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            //'g-recaptcha-response' => 'required|captcha'
+        ]);
+    }
 
     public function enterpriseForm(){
         $profiles = request()->user()->profiles;

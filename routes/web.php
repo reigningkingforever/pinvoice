@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::view('create','user.invoice.create');
 Route::get('setup','User\HomeController@setup')->name('user.setup');
 Route::post('setup-complete','User\HomeController@setupcomplete')->name('user.setupcomplete');
 Route::get('enterprise/profile','Auth\LoginController@enterpriseForm')->name('enterpriseForm');
@@ -69,6 +69,8 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
     Route::post('blockcontact','ContactController@block');
 
     Route::get('invoice','InvoiceController@index')->name('invoice');
+    Route::get('invoice/create','InvoiceController@create')->name('invoice.create');
+    Route::post('invoice/save','InvoiceController@save')->name('invoice.save');
     Route::post('invoice/showconversation','InvoiceController@showconversation')->name('invoiceconversation');
     Route::get('escrow','EscrowController@index')->name('escrow');
     Route::get('payment','PaymentController@index')->name('payment');
