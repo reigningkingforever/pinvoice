@@ -12,7 +12,7 @@
             <div class="col-12">
                 <div class="mb-2">
                     {{-- <h1>Sarah Kortney</h1> --}}
-                   
+
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb pt-0">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -250,7 +250,7 @@
                                 <button class="btn btn-header-light icon-button"><i class="simple-icon-refresh"></i></button>
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">Recently Used Template</h5>
+                                <h5 class="card-title">Drafts</h5>
                                 <div>
                                     <div class="d-flex flex-row mb-3">
                                         <a class="d-block position-relative" href="#"><img src="{{asset('img/marble-cake-thumb.jpg')}}" alt="Marble Cake" class="list-thumbnail border-0"> <span class="badge badge-pill badge-theme-2 position-absolute badge-top-right">NEW</span></a>
@@ -290,206 +290,249 @@
 
                     </div>
                     <div class="col-12 col-lg-7 col-xl-8 col-right survey-app">
-                        <div class="sortable-survey">
-                            <div class="receiver">
-                                <div class="card question d-flex mb-4 edit-quesiton">
-                                    <div class="d-flex flex-grow-1 min-width-zero">
-                                        <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                            <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1"><!--span class="heading-number d-inline-block">1 </!--span -->Receiver</div>
-                                        </div>
-                                        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                            {{-- <button class="btn btn-outline-theme-3 icon-button edit-button"><i class="simple-icon-pencil"></i></button>
-                                            <button class="btn btn-outline-theme-3 icon-button view-button"><i class="simple-icon-eye"></i></button> --}}
-                                            <button class="btn btn-outline-theme-3 icon-button rotate-icon-click rotate" type="button" data-toggle="collapse" data-target="#q1" aria-expanded="true" aria-controls="q1"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="question-collapse collapse show" id="q1">
-                                        <div class="card-body pt-0">
-                                            <div class="edit-mode">
-                                                <div class="form-group mb-3">
-                                                    <label class="d-block">Select Contacts</label>
-                                                    <select class="form-control select2-single" data-width="100%" multiple>
-                                                        <option label="&nbsp;">Abraham Johnson</option>
-                                                        <option value="0">John Maxwell</option>
-                                                        <option value="1">Alice Bob</option>
-                                                        <option value="2">Multiple Select</option>
-                                                        <option value="3">Checkbox</option>
-                                                        <option value="4">Radiobutton</option>
-                                                    </select>
-                                                </div>
-
+                        <form id="invoicecreateform" action="{{route('invoice.save')}}" method="POST" enctype="multipart/form-data">@csrf
+                            <div class="sortable-survey">
+                                <div class="receiver">
+                                    <div class="card question d-flex mb-4 edit-quesiton">
+                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                                <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1"><!--span class="heading-number d-inline-block">1 </!--span -->Receiver</div>
                                             </div>
-
+                                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
+                                                {{-- <button class="btn btn-outline-theme-3 icon-button edit-button"><i class="simple-icon-pencil"></i></button>
+                                                <button class="btn btn-outline-theme-3 icon-button view-button"><i class="simple-icon-eye"></i></button> --}}
+                                                <button class="btn btn-outline-theme-3 icon-button rotate-icon-click rotate" type="button" data-toggle="collapse" data-target="#q1" aria-expanded="true" aria-controls="q1"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="question-collapse collapse show" id="q1">
+                                            <div class="card-body pt-0">
+                                                <div class="edit-mode">
+                                                    <div class="form-group mb-3">
+                                                        <label class="d-block">Select Contacts</label>
+                                                        <select name="receiver" class="form-control select2-single" data-width="100%" multiple>
+                                                            <option label="&nbsp;">Abraham Johnson</option>
+                                                            <option value="0">John Maxwell</option>
+                                                            <option value="1">Alice Bob</option>
+                                                            <option value="2">Multiple Select</option>
+                                                            <option value="3">Checkbox</option>
+                                                            <option value="4">Radiobutton</option>
+                                                        </select>
+                                                    </div>
 
-                            <div class="extra">
-                                <div class="card question d-flex mb-4 edit-quesiton">
-                                    <div class="d-flex flex-grow-1 min-width-zero">
-                                        <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                            <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1"><!--span-- class="heading-number d-inline-block">3 </!--span-->Extra Info</div>
-                                        </div>
-                                        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                            {{-- <button class="btn btn-outline-theme-3 icon-button edit-button"><i class="simple-icon-pencil"></i></button>
-                                            <button class="btn btn-outline-theme-3 icon-button view-button"><i class="simple-icon-eye"></i></button> --}}
-                                            <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#q3" aria-expanded="false" aria-controls="q3"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="collapse question-collapse" id="q3">
-                                        <div class="card-body pt-0">
-                                            <div class="edit-mode">
-                                                <div class="form-group mb-3">
-                                                    <label class="d-block">Currency</label>
-                                                    <select class="form-control select2-single" data-width="100%">
-                                                        <option label="&nbsp;">Naira</option>
-                                                        <option value="0">Dollar</option>
-                                                        <option value="1" selected="selected">Pounds</option>
-                                                        <option value="2">Euro</option>
-                                                        <option value="3">Yen</option>
-                                                        <option value="4">BTC</option>
-                                                    </select>
                                                 </div>
 
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend"><span class="input-group-text">Tax</span></div>
-                                                    <input type="text" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Percent</button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Minus</a>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend"><span class="input-group-text">Discount</span></div>
-                                                    <input type="text" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Minus</button>
-                                                        <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Percent</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label>Escrow Fees charged to?</label>
-                                                    <div class="mb-4">
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio1">Receiver</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio2">Sender</label>
-                                                        </div>
-                                                        <div class="custom-control custom-radio">
-                                                            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                                                            <label class="custom-control-label" for="customRadio3">Split 50/50</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label>Add Note</label>
-                                                    <input class="form-control" type="text" placeholder="About this invoice">
-                                                </div>
-                                                <div class="form-group mb-5">
-                                                    <label>Attach Media</label>
-                                                    <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
-                                                        <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
-                                                        <input id="uploadfile" type="file" name="chatfile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
-                                                        <button type="button" id="startcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-                                                        <button type="button" id="startaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-                                                        <button type="button" id="startvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
-
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="product">
-                                <div class="card question d-flex mb-4 edit-quesiton">
-                                    <div class="d-flex flex-grow-1 min-width-zero">
-                                        <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
-                                            <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1">
-                                                <span class="heading-number d-inline-block">1 </span>Product</div>
-                                        </div>
-                                        <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
-                                            <button class="btn btn-outline-danger icon-button removeproduct"><i class="simple-icon-close"></i></button>
-                                            <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#p1" aria-expanded="false" aria-controls="p1"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="collapse question-collapse" id="p1">
-                                        <div class="card-body pt-0">
-                                            <div class="edit-mode">
-                                                <div class="form-group mb-3">
-                                                    <label>Name</label>
-                                                    <input class="form-control" type="text" placeholder="product name">
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label>Description</label>
-                                                    <input class="form-control" type="text" placeholder="Optional">
-                                                </div>
-                                                <div class="form-group mb-3">
-                                                    <label>Attach Media</label>
-                                                    <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
-                                                        <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
-                                                        <input id="uploadfile" type="file" name="chatfile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
-                                                        <button type="button" id="startcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-                                                        <button type="button" id="startaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-                                                        <button type="button" id="startvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
 
-                                                    </div>
-                                                </div>
-                                                <div class="separator mb-4"></div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group col-xs-6">
-                                                        <label for="inputEmail4">Quantity</label>
-                                                        <input type="number" class="form-control" id="inputEmail4" placeholder="1">
-                                                    </div>
-                                                    <div class="form-group col-xs-6">
-                                                        <label for="inputPassword4">Unit Cost</label>
-                                                        <input type="number" class="form-control" id="inputPassword4" placeholder="0">
-                                                    </div>
-                                                </div>
-                                                <label>Amount</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">$</span>
-                                                    </div>
-                                                    <input type="text" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">.00</span>
-                                                    </div>
-                                                </div>
-                                                <div class="text-center">
-                                                    <button type="button" class="btn btn-outline-primary btn-sm mb-2 addproduct">
-                                                        <i class="simple-icon-plus btn-group-icon"></i> Add Product
-                                                    </button>
-                                                </div>
-
+                                <div class="extra">
+                                    <div class="card question d-flex mb-4 edit-quesiton">
+                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                                <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1"><!--span-- class="heading-number d-inline-block">3 </!--span-->Extra Info</div>
+                                            </div>
+                                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
+                                                {{-- <button class="btn btn-outline-theme-3 icon-button edit-button"><i class="simple-icon-pencil"></i></button>
+                                                <button class="btn btn-outline-theme-3 icon-button view-button"><i class="simple-icon-eye"></i></button> --}}
+                                                <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#q3" aria-expanded="false" aria-controls="q3"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
                                             </div>
 
                                         </div>
+                                        <div class="collapse question-collapse" id="q3">
+                                            <div></div>
+                                            <div class="card-body pt-0">
+                                                <p>Invoice will automatically expire on 12/12/2020</p>
+                                                <div class="edit-mode">
+                                                    <div class="form-group mb-3">
+                                                        <label class="d-block">Currency</label>
+                                                        <select name="currency" class="form-control select2-single" data-width="100%">
+                                                            <option label="&nbsp;">Naira</option>
+                                                            <option value="0">Dollar</option>
+                                                            <option value="1" selected="selected">Pounds</option>
+                                                            <option value="2">Euro</option>
+                                                            <option value="3">Yen</option>
+                                                            <option value="4">BTC</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend"><span class="input-group-text">Tax</span></div>
+                                                        <input type="text" name="tax" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%</button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item" href="#">.00</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <div class="input-group col-xs-6">
+                                                            <div class="input-group-prepend"><span class="input-group-text">Discount </span></div>
+                                                            <input type="text" name="discount" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">%</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-xs-6 mb-0">
+                                                            <select name="discountexpiry" id="inputState" class="form-control ">
+                                                                <option selected="selected">Discount expiry</option>
+                                                                <option>No expiry</option>
+                                                                <option>24 hours</option>
+                                                                <option>2 days</option>
+                                                                <option>3 days</option>
+                                                                <option>4 days</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-3">
+                                                        <div class="input-group col-xs-6">
+                                                            <div class="input-group-prepend"><span class="input-group-text">Penalty </span></div>
+                                                            <input type="text" name="penalty" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
+                                                                <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">%</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-xs-6 mb-0">
+                                                            <select name="penaltyperiod" id="inputState" class="form-control ">
+                                                                <option selected="selected">Apply after</option>
+                                                                <option>No penalty</option>
+                                                                <option>24 hours</option>
+                                                                <option>2 days</option>
+                                                                <option>3 days</option>
+                                                                <option>4 days</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label>Escrow Fees charged to?</label>
+                                                        <div class="mb-4">
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" value="receiver" id="customRadio1" name="escrowfee" class="custom-control-input">
+                                                                <label class="custom-control-label" for="customRadio1">Receiver</label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" value="sender" id="customRadio2" name="escrowfee" class="custom-control-input">
+                                                                <label class="custom-control-label" for="customRadio2">Sender</label>
+                                                            </div>
+                                                            <div class="custom-control custom-radio">
+                                                                <input type="radio" value="split" id="customRadio3" name="escrowfee" class="custom-control-input">
+                                                                <label class="custom-control-label" for="customRadio3">Split 50/50</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label>Add Note</label>
+                                                        <input name="note" class="form-control" type="text" placeholder="About this invoice">
+                                                    </div>
+                                                    <div class="form-group mb-5">
+                                                        <label>Attach Media</label>
+                                                        <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
+                                                            <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
+                                                            <input id="uploadfile" type="file" name="invoicefile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
+                                                            <button type="button" id="invoicecamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
+                                                            <button type="button" id="invoiceaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
+                                                            <button type="button" id="invoicevideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="product">
+                                    <div class="card question d-flex mb-4 edit-quesiton">
+                                        <div class="d-flex flex-grow-1 min-width-zero">
+                                            <div class="card-body align-self-center d-flex flex-column flex-md-row justify-content-between min-width-zero align-items-md-center">
+                                                <div class="list-item-heading mb-0 truncate w-80 mb-1 mt-1">
+                                                    <span class="heading-number d-inline-block">1 </span>Product</div>
+                                            </div>
+                                            <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
+                                                <button class="btn btn-outline-danger icon-button removeproduct"><i class="simple-icon-close"></i></button>
+                                                <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#p1" aria-expanded="false" aria-controls="p1"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="collapse question-collapse" id="p1">
+                                            <div class="card-body pt-0">
+                                                <div class="edit-mode">
+                                                    <div class="form-group mb-3">
+                                                        <label>Name</label>
+                                                        <input class="form-control" name="product[name]" type="text" placeholder="product name">
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label>Description</label>
+                                                        <input class="form-control" name="product[description]" type="text" placeholder="Optional">
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label>Attach Media</label>
+                                                        <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
+                                                            <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
+                                                            <input id="uploadfile" type="file" name="product[file]" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
+                                                            <button type="button" id="startcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
+                                                            <button type="button" id="startaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
+                                                            <button type="button" id="startvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="separator mb-4"></div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-xs-6">
+                                                            <label for="inputEmail4">Quantity</label>
+                                                            <input type="number" name="product[quantity]" class="form-control" id="inputEmail4" placeholder="1">
+                                                        </div>
+                                                        <div class="form-group col-xs-6">
+                                                            <label for="inputPassword4">Unit Cost</label>
+                                                            <input type="number" name="product[cost]" class="form-control" id="inputPassword4" placeholder="0">
+                                                        </div>
+                                                    </div>
+                                                    <label>Amount</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">$</span>
+                                                        </div>
+                                                        <input type="text" name="product[amount]" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">.00</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm mb-2 addproduct">
+                                                            <i class="simple-icon-plus btn-group-icon"></i> Add Product
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <button type="button" class="btn btn-outline-primary btn-sm mb-2"><i class="simple-icon-eye btn-group-icon"></i> Preview</button>
-                            <button type="button" class="btn btn-outline-primary btn-sm mb-2"><i class="simple-icon-plane btn-group-icon"></i> Send</button>
-                        </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-outline-primary btn-sm mb-2">
+                                    <i class="simple-icon-eye btn-group-icon"></i> Preview
+                                </button>
+                                <button type="button" id="submitproduct" class="btn btn-outline-primary btn-sm mb-2">
+                                    <i class="simple-icon-plane btn-group-icon"></i> Send
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="app-menu" style="width:300px !important;">
-        <span class="d-block mt-3 text-center">Recent Messages</span>
+        <span class="d-block mt-3 text-center">Invoice Result</span>
         {{-- @include('user.chat.recentmessages') --}}
         <a class="app-menu-button d-inline-block d-xl-none" href="#">
             <i class="simple-icon-options"></i>
@@ -513,8 +556,8 @@
                         <button id="btn-start-recording" class="btn btn-primary">Start</button>
                         <button id="btn-stop-recording" class="btn btn-danger" disabled>Stop</button>
                         <button id="btn-release-microphone" disabled style="display:none">Release Microphone</button>
-                        <button id="btn-upload-recording" class="btn btn-success" disabled>Send</button>
-                        <button data-dismiss="modal" class="btn btn-danger">Discard</button>
+                        <button id="btn-upload-recording" class="btn btn-success" disabled>Add</button>
+                        <button data-dismiss="modal" class="btn btn-danger">Cancel</button>
                    </div>
                 </div>
             </div>
@@ -602,158 +645,56 @@
             $(this).find('.rotate-icon-click').attr('data-target','#p'+index+1);
             $(this).find('.rotate-icon-click').attr('aria-controls','p'+index+1);
         });
-
-    });
-    // $(document).ready(function(){
-    //     $('#receivedinvoice').hide();
-    //     $('#conversation').hide();
-    // });
-
-    // $('#switchsent').click(function(){
-    //     $('#switchreceived').removeClass('active');
-    //     $('#switchsent').addClass('active');
-    //     $('#receivedinvoice').hide();
-    //     $('#sentinvoice').fadeIn();
-    // });
-</script>
-{{-- get recent messages --}}
-<script>
-    $(document).on('click','.recent',function(){
-        $(".app-menu").toggleClass('draw');
-
-        $(".app-menu").toggleClass('shown');
-        id = $(this).attr('id');
-        $.ajax({
-            type:'POST',
-            url:'{{ route("invoiceconversation") }}',
-            data:{
-                '_token' : $('meta[name="csrf-token"]').attr('content'),
-                'invoice_id': parseInt(id),
-            },
-            success:function(data) {
-                $('#recentmessages').replaceWith(data);
-            },
-            error: function (data, textStatus, errorThrown) {
-            console.log(data);
-            },
-        });
-
-        // let delay = 5000;
-        // var count = 0;
-        // let timerId = setTimeout(function request() {
-        //     $.ajax({
-        //         type:'POST',
-        //             url:'{{ route("chatgetmessages") }}',
-        //             data:{
-        //                 '_token' : $('meta[name="csrf-token"]').attr('content'),
-        //                 'id': invoice_id,
-        //                 'type': "invoice"
-        //             },
-        //             success:function(data) {
-        //                 if(data != 403)
-        //                 $('#converse').append(data);
-        //             },
-        //             error: function (data, textStatus, errorThrown) {
-        //             console.log(data);
-        //             delay *= 2;
-        //             },
-        //     });
-        // timerId = setTimeout(request, delay);
-        // }, delay);
-
     });
 </script>
-<script>
-    var invoice_id = $('[name="invoice"]').val();
-    function sendMessage(e){
-        if(event.key === 'Enter' && e.value != ''){
-            $.ajax({
-                type:'POST',
-                url:'{{ route("chatsendmessage") }}',
-                data:{
-                    '_token' : $('meta[name="csrf-token"]').attr('content'),
-                    'message': e.value,
-                    'id': invoice_id,
-                    'type': "invoice"
-                },
-                success:function(data) {
-                    $("#typetext").val('');
-                    $('#converse').append(data);
-                },
-                error: function (data, textStatus, errorThrown) {
-                console.log(data);
-                },
-            });
-        }
-    }
 
-</script>
 @include('user.chat.uploadaudio')
-<script>
-    $(document).on('click','#startaudio',function(){
-        $("#audioRecord").modal()
-    });
-    function sendAudio(adata){
-        var invoice_id = $('[name="invoice"]').val();
-        var formData = new FormData();
-        formData.append('file', adata);
-        formData.append('type', 'invoice');
-        formData.append('id', invoice_id);
-        console.log('upload recording ' + adata + ' to server');
-        // start upload
-        $.ajax({
-            type:'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:'{{ route("chatsendAudio") }}',
-            data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,
-            success:function(data) {
-                $('#converse').append(data);
-                $("#audioRecord").modal('hide');
-            },
-            error: function (data, textStatus, errorThrown) {
-            console.log(data);
-            },
-        });
-    }
-</script>
 @include('user.chat.uploadvideo')
+@include('user.chat.captureimage')
+@include('user.chat.uploadfile')
 <script>
+    var formElement = document.getElementById('invoicecreateform');
+    var formData = new FormData(formElement);
+    var caller;
     $(document).on('click','#startvideo',function(){
-        $("#videoRecord").modal()
+        caller = 'product number/ extra'
+        $("#videoRecord").modal();
     });
-    function sendVideo(vdata){
-        var invoice_id = $('[name="invoice"]').val();
-        var formData = new FormData();
-        formData.append('file', vdata);
-        formData.append('type', 'invoice');
-        formData.append('id', invoice_id);
-        console.log('upload recording ' + vdata + ' to server');
-        // start upload
+    $(document).on('click','#startaudio',function(){
+        $("#audioRecord").modal();
+    });
+    $('#submitproduct').click(function(){
         $.ajax({
             type:'POST',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url:'{{ route("chatsendVideo") }}',
+            url:'{{ route("invoice.save") }}',
             data: formData,
             processData: false,  // tell jQuery not to process the data
             contentType: false,
             success:function(data) {
-                $('#converse').append(data);
-                $("#videoRecord").modal('hide');
-
+                console.log(data);
             },
             error: function (data, textStatus, errorThrown) {
             console.log(data);
             },
         });
+
+    });
+
+    function sendAudio(adata){
+        //then i'll name the append with the caller
+        formData.append('audio', adata);
+        $("#audioRecord").modal('hide');
+        // for (var key of formData.entries()) {
+        //     console.log(key[0] + ', ' + key[1]);
+        // }
+    }
+    function sendVideo(vdata){
+        formData.append('video', vdata);
+        $("#videoRecord").modal('hide');
     }
 </script>
-@include('user.chat.captureimage')
-@include('user.chat.uploadfile') --}}
 
 @endpush
