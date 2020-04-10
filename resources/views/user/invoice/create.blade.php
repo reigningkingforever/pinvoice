@@ -309,7 +309,7 @@
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Select Contacts</label>
-                                                        <select name="receiver" class="form-control select2-single" data-width="100%" multiple>
+                                                        <select name="receiver[]" class="form-control select2-single" data-width="100%" multiple>
                                                             <option label="&nbsp;">Abraham Johnson</option>
                                                             <option value="0">John Maxwell</option>
                                                             <option value="1">Alice Bob</option>
@@ -378,7 +378,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-xs-6 mb-0">
-                                                            <select name="discountexpiry" id="inputState" class="form-control ">
+                                                            <select name="discountexpiry" id="discountexpiry" class="form-control ">
                                                                 <option selected="selected">Discount expiry</option>
                                                                 <option>No expiry</option>
                                                                 <option>24 hours</option>
@@ -400,7 +400,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-xs-6 mb-0">
-                                                            <select name="penaltyperiod" id="inputState" class="form-control ">
+                                                            <select name="penaltyperiod" id="penaltyperiod" class="form-control">
                                                                 <option selected="selected">Apply after</option>
                                                                 <option>No penalty</option>
                                                                 <option>24 hours</option>
@@ -435,10 +435,13 @@
                                                         <label>Attach Media</label>
                                                         <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
                                                             <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
-                                                            <input id="uploadfile" type="file" name="invoicefile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
+                                                            <input id="uploadfile" type="file" name="invoicefile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none"/>
                                                             <button type="button" id="invoicecamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
+                                                            <input type="file" name="invoicecamera" style="display:none"/>
                                                             <button type="button" id="invoiceaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
+                                                            <input type="file" name="invoiceaudio" style="display:none"/>
                                                             <button type="button" id="invoicevideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+                                                            <input type="file" name="invoicevideo" style="display:none"/>
 
                                                         </div>
                                                     </div>
@@ -457,7 +460,8 @@
                                             </div>
                                             <div class="custom-control custom-checkbox pl-1 align-self-center pr-4">
                                                 <button class="btn btn-outline-danger icon-button removeproduct"><i class="simple-icon-close"></i></button>
-                                                <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#p1" aria-expanded="false" aria-controls="p1"><i class="simple-icon-arrow-down with-rotate-icon"></i></button>
+                                                <button class="btn btn-outline-theme-3 icon-button rotate-icon-click" type="button" data-toggle="collapse" data-target="#p1" aria-expanded="false" aria-controls="p1">
+                                                    <i class="simple-icon-arrow-down with-rotate-icon"></i></button>
                                             </div>
                                         </div>
                                         <div class="collapse question-collapse" id="p1">
@@ -465,32 +469,41 @@
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label>Name</label>
-                                                        <input class="form-control" name="product[name]" type="text" placeholder="product name">
+                                                        <input class="form-control" name="product[name][]" type="text" placeholder="product name">
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label>Description</label>
-                                                        <input class="form-control" name="product[description]" type="text" placeholder="Optional">
+                                                        <input class="form-control" name="product[description][]" type="text" placeholder="Optional">
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label>Attach Media</label>
                                                         <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
-                                                            <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
-                                                            <input id="uploadfile" type="file" name="product[file]" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"/>
-                                                            <button type="button" id="startcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-                                                            <button type="button" id="startaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-                                                            <button type="button" id="startvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+                                                            <button type="button" class="btn btn-light default productfile"><i class="simple-icon-paper-clip"></i></button>
+                                                            <input type="file" name="product[file][]" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none" onchange="getUploadFile(this)" />
+                                                            <button type="button" class="btn btn-light default productcapture"><i class="simple-icon-camera"></i></button>
+                                                            <input type="hidden" name="product[capture][]" style="display:none"/>
+                                                            <button type="button" class="btn btn-light default productaudio"><i class="simple-icon-microphone"></i></button>
+                                                            <input type="hidden" name="product[audio][]" style="display:none"/>
+                                                            <button type="button" class="btn btn-light default productvideo"><i class="iconsminds-video-tripod"></i></button>
+                                                            <input type="hidden" name="product[video][]" style="display:none"/>
                                                         </div>
-                                                    </div>
-                                                    <div class="separator mb-4"></div>
 
+                                                    </div>
+                                                    <ul class="d-flex list-unstyled productmedia">
+                                                        <li class="mx-2 productfilename" style="cursor:pointer"></li>
+                                                        <li class="mx-2 productaudioname" style="cursor:pointer"></li>
+                                                        <li class="mx-2 productvideoname" style="cursor:pointer"></li>
+                                                        <li class="mx-2 productcapturename" style="cursor:pointer"></li>
+                                                    </ul>
+                                                    <div class="separator mb-4"></div>
                                                     <div class="form-row">
                                                         <div class="form-group col-xs-6">
                                                             <label for="inputEmail4">Quantity</label>
-                                                            <input type="number" name="product[quantity]" class="form-control" id="inputEmail4" placeholder="1">
+                                                            <input type="number" name="product[quantity][]" class="form-control" id="inputEmail4" placeholder="1">
                                                         </div>
                                                         <div class="form-group col-xs-6">
                                                             <label for="inputPassword4">Unit Cost</label>
-                                                            <input type="number" name="product[cost]" class="form-control" id="inputPassword4" placeholder="0">
+                                                            <input type="number" name="product[cost][]" class="form-control" id="inputPassword4" placeholder="0">
                                                         </div>
                                                     </div>
                                                     <label>Amount</label>
@@ -498,7 +511,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">$</span>
                                                         </div>
-                                                        <input type="text" name="product[amount]" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                        <input type="text" name="product[amount][]" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">.00</span>
                                                         </div>
@@ -521,7 +534,7 @@
                                 <button type="button" class="btn btn-outline-primary btn-sm mb-2">
                                     <i class="simple-icon-eye btn-group-icon"></i> Preview
                                 </button>
-                                <button type="button" id="submitproduct" class="btn btn-outline-primary btn-sm mb-2">
+                                <button type="submit" id="submitproduct" class="btn btn-outline-primary btn-sm mb-2">
                                     <i class="simple-icon-plane btn-group-icon"></i> Send
                                 </button>
                             </div>
@@ -545,12 +558,6 @@
             <div class="modal-body">
 
                 <div class="call-container">
-                    {{-- <div class="current-user">
-                        <i class="simple-icon-microphone h3"></i>
-                    </div>
-                    <h5 class="calling-user-name">
-                        Click Record to begin recording<span class="calling">Recording...</span>
-                    </h5> --}}
                     <div class="d-flex justify-content-center"><audio controls autoplay playsinline></audio></div>
                     <div id="controls" class="d-flex justify-content-around mt-1">
                         <button id="btn-start-recording" class="btn btn-primary">Start</button>
@@ -580,7 +587,7 @@
                     <div id="controls" class="d-flex justify-content-around mt-1">
                         <button id="btn-start-video-recording" class="btn btn-primary">Start</button>
                         <button id="btn-stop-video-recording" class="btn btn-danger" disabled>Stop </button>
-                        <button id="btn-upload-video" class="btn btn-success" disabled>Send</button>
+                        <button id="btn-upload-video" class="btn btn-success" disabled>Add</button>
                         <button data-dismiss="modal" class="btn btn-danger">Discard</button>
                    </div>
                 </div>
@@ -592,9 +599,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
                 <div id="capturecontainer" class="d-flex flex-column justify-content-center" style="width:100%">
-
                     <h5 class="calling-user-name">
                          <span class="calling">Image Capturing...</span>
                     </h5>
@@ -604,7 +609,7 @@
                     <div class="d-flex justify-content-around">
                         <button type='button' class="retakepicture btn btn-warning mt-2" onClick="retake()">Retake Snapshot</button>
                         <button type="button" class="retakepicture btn btn-success mt-2" id="sendCapture">
-                            <span>Send Image</span>
+                            <span>Add Image</span>
                         </button>
                     </div>
                 </div>
@@ -625,7 +630,6 @@
     $(document).on('click','.addproduct',function(){
         var product = $(this).closest('.product').clone();
         // var id = product.find('.collapse').attr('id');
-
         product.insertAfter($('.product').last());
         $('.product').each(function(index){
             $(this).find('.heading-number').html(index+1);
@@ -633,7 +637,6 @@
             $(this).find('.rotate-icon-click').attr('data-target','#p'+index+1);
             $(this).find('.rotate-icon-click').attr('aria-controls','p'+index+1);
         });
-
     });
     $(document).on('click','.removeproduct',function(){
         if($('.product').length > 1){
@@ -651,7 +654,7 @@
 @include('user.chat.uploadaudio')
 @include('user.chat.uploadvideo')
 @include('user.chat.captureimage')
-@include('user.chat.uploadfile')
+
 <script>
     var formElement = document.getElementById('invoicecreateform');
     var formData = new FormData(formElement);
@@ -661,40 +664,108 @@
         $("#videoRecord").modal();
     });
     $(document).on('click','#startaudio',function(){
+        caller = null;
         $("#audioRecord").modal();
     });
-    $('#submitproduct').click(function(){
-        $.ajax({
-            type:'POST',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url:'{{ route("invoice.save") }}',
-            data: formData,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,
-            success:function(data) {
-                console.log(data);
-            },
-            error: function (data, textStatus, errorThrown) {
-            console.log(data);
-            },
-        });
-
+    $(document).on('click','#upload_link',function(e){
+        e.preventDefault();
+        $("#uploadfile:hidden").trigger('click');
     });
-
-    function sendAudio(adata){
-        //then i'll name the append with the caller
-        formData.append('audio', adata);
-        $("#audioRecord").modal('hide');
-        // for (var key of formData.entries()) {
-        //     console.log(key[0] + ', ' + key[1]);
-        // }
-    }
-    function sendVideo(vdata){
-        formData.append('video', vdata);
-        $("#videoRecord").modal('hide');
-    }
 </script>
 
+<script>
+    //product file
+    $(document).on('click','.productfile',function(e){
+        // e.preventDefault();
+        $(this).next("input[type='file']:hidden").trigger('click');
+    });
+    function getUploadFile(el){
+        // var element = event.srcElement;
+       $(el).closest('.product').find('.productfilename').html(el.files.item(0).name +'<i class="simple-icon-close text-danger ml-1"></i>');
+    }
+    $(document).on('click','.productfilename',function(e){
+        // e.preventDefault();
+        $(this).closest('.product').find("input[name='product[file][]']:hidden").val('');
+        $(this).html('');
+    });
+</script>
+<script>
+    $(document).on('click','.productaudio',function(){
+        caller = this;
+        $("#audioRecord").modal();
+    });
+    function sendAudio(adata){
+        var reader = new FileReader();
+        reader.readAsDataURL(adata);
+        reader.onloadend = function() {
+            var base64data = reader.result;
+            $(caller).next("input[name='product[audio][]']:hidden").val(base64data);
+            console.log(base64data);
+        }
+        $("#audioRecord").modal('hide');
+        $(caller).closest('.product').find('.productaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
+    }
+    $(document).on('click','.productaudioname',function(e){
+        $(this).closest('.product').find("input[name='product[audio][]']:hidden").val('');
+        $(this).html('');
+    });
+</script>
+<script>
+    $(document).on('click','.productvideo',function(){
+        caller = this;
+        $("#videoRecord").modal();
+    });
+    function sendVideo(vdata){
+        var reader = new FileReader();
+        reader.readAsDataURL(vdata);
+        reader.onloadend = function() {
+            var base64data = reader.result;
+            $(caller).next("input[name='product[video][]']:hidden").val(base64data);
+            console.log(base64data);
+        }
+        $("#videoRecord").modal('hide');
+        $(caller).closest('.product').find('.productvideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
+    }
+    $(document).on('click','.productvideoname',function(e){
+        $(this).closest('.product').find("input[name='product[video][]']:hidden").val('');
+        $(this).html('');
+    });
+</script>
+<script>
+    //product capture
+    $(document).on('click','.productcapture',function(){
+        caller = this;
+        $("#imageCapture").modal();
+        Webcam.set({
+            width: 400,
+            height: 350,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+        });
+        Webcam.attach('#my_camera1');
+        $('#my_camera1').width('100%');
+        $('#my_camera1 video').width('100%');
+        $('#my_camera1 video').height('100%');
+    });
+    $('#sendCapture').click(function(){
+        Webcam.reset();
+        $("#imageCapture").modal('hide');
+    });
+
+    function take_snapshot1() {
+        // take snapshot and get image data
+        Webcam.snap( function(data_uri) {
+            $(caller).next("input[name='product[capture][]']:hidden").val(data_uri);
+            document.getElementById('my_camera1').innerHTML ='<img src="'+data_uri+'"/>';
+        });
+        $('#takepicture').hide();
+        $('.retakepicture').show();
+        $(caller).closest('.product').find('.productcapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
+    }
+
+    $(document).on('click','.productcapturename',function(e){
+        $(this).closest('.product').find("input[name='product[capture][]']:hidden").val('');
+        $(this).html('');
+    });
+</script>
 @endpush

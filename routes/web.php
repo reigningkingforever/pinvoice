@@ -60,13 +60,13 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
     Route::post('enterprise/updateprofile','HomeController@updateEnterpriseProfile')->name('enterprise.profile.update');
 
     Route::get('contact','ContactController@index')->name('contact');
-    Route::post('searchcontact','ContactController@search');
-    Route::post('sendrequest','ContactController@sendRequest');
-    Route::post('acceptrequest','ContactController@acceptRequest');
-    Route::post('rejectrequest','ContactController@rejectRequest');
+    Route::post('searchcontact','ContactController@search')->name('searchcontact');;
+    Route::post('sendrequest','ContactController@sendRequest')->name('sendrequest');;
+    Route::post('acceptrequest','ContactController@acceptRequest')->name('acceptrequest');;
+    Route::post('rejectrequest','ContactController@rejectRequest')->name('rejectrequest');;
     Route::get('contactresponse','ContactController@requestResponse'); //test link
-    Route::post('removecontact','ContactController@remove');
-    Route::post('blockcontact','ContactController@block');
+    Route::post('removecontact','ContactController@remove')->name('removecontact');;
+    Route::post('blockcontact','ContactController@block')->name('blockcontact');
 
     Route::get('invoice','InvoiceController@index')->name('invoice');
     Route::get('invoice/create','InvoiceController@create')->name('invoice.create');

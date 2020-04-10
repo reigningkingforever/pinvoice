@@ -17,10 +17,10 @@ class ContactController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $contact = Contact::where('user_id',Auth::id())->first()->people;
-        $people = User::whereIn('id',array_keys($contact))->get();
+        $people = Contact::where('user_id',Auth::id())->get();
+        //dd($people);
         $invitations = Invitation::where('receiver_id',Auth::id())->where('status','waiting')->where('expiry','>',Carbon::now())->get();
-        return view('user.contact',compact('people','contact','invitations'));
+        return view('user.contact',compact('people','invitations'));
     }
     public function search(Request $request){
         $users = User::where('name','LIKE',"%$request->person%")->orWhere('email','LIKE',"%$request->person%")->orWhere('mobile','LIKE',"%$request->person%")->get();
@@ -34,71 +34,42 @@ class ContactController extends Controller
         $invitation->expiry = Carbon::now()->addDays(7);
         $user = User::find($request->person);
         if($user->auto_accept_invitation){
-            $new = array(Auth::user()->id =>'on');
-            if($user->contact){
-                $user->contact->people = $user->contact->people + $new;
-                $user->contact->save();
-            }else{
-                $contact = new Contact;
-                $contact->user_id = $user->id;
-                $contact->people = $new;
-                $contact->save();
-            }
-            $invitation->status = 'accepted';
+            $newContact = new Contact;
+            $newContact->user_id = $request->person;
+            $newContact->person = Auth::id();
+            $newContact->status = true;
+            $newContact->save();
         }
         $invitation->save();
         return response()->json(200);
     }
 
     public function acceptRequest(Request $request){
-        $user = Auth::user();
-        $new = array($request->person =>'on');
-        if($user->contact){
-            $user->contact->people = $user->contact->people + $new;
-            $user->contact->save();
-        }else{
-            $contact = new Contact;
-            $contact->user_id = $user->id;
-            $contact->people = $new;
-            $contact->save();
-        }
-        $invitation = Invitation::where('sender_id',$request->person)->where('receiver_id',$user->id)->where('expiry','>',Carbon::now())->first();
-        $invitation->status = 'accepted';
-        $invitation->save();
+        $contact = new Contact;
+        $contact->user_id = Auth::id();
+        $contact->person = $request->person;
+        $contact->status = true;
+        $contact->save();
+        $invitation = Invitation::where('sender_id',$request->person)->where('receiver_id',Auth::id())->delete();
         return response()->json(200);
     }
 
     public function rejectRequest(Request $request){
         $user = Auth::user();
-        $invitation = Invitation::where('sender_id',$request->person)->where('receiver_id',Auth::id())->where('expiry','>',Carbon::now())->first();
-        $invitation->status = 'rejected';
-        $invitation->saved();
+        $invitation = Invitation::where('sender_id',$request->person)->where('receiver_id',Auth::id())->delete();
         return response()->json(200);
     }
 
     public function block(Request $request){
-        $contact = Contact::where('user_id',Auth::id())->first();
-        $removal = array($request->person => $contact->people[$request->person]);
-        $newarray = array_diff_assoc($contact->people,$removal);
-        if($removal[$request->person] == "on"){
-            $removal = array($request->person => 'off');
-            $button = 'Block';
-        }
-        else{
-            $removal = array($request->person => 'on');
-            $button = 'Unblock';
-        }
-
-        $contact->people = $newarray + $removal;
+        $contact = Contact::where('user_id',Auth::id())->where('person',$request->person)->first();
+        if($contact->status) $contact->status = false;
+        else $contact->status = true;
         $contact->save();
-        return response()->json(['button'=> $button]);
+        return response()->json(200);
     }
 
     public function remove(Request $request){
-        $contact = Contact::where('user_id',Auth::id())->first();
-        $removal = array($request->person => $contact->people[$request->person]);
-        $contact->people = array_diff_assoc($contact->people,$removal);
-        $contact->save();
+        $contact = Contact::where('user_id',Auth::id())->where('person',$request->person)->delete();
         return response()->json(200);
     }
 }

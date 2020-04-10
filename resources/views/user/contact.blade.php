@@ -46,7 +46,7 @@
                     <div class="tab-pane show active" id="list" role="tabpanel" aria-labelledby="list-tab">
                         <div class="row">
                             @forelse ($people as $person)
-                                <div class="col-12 col-md-6 col-lg-4" id="person-{{$person->id}}">
+                                <div class="col-12 col-md-6 col-lg-4" id="person-{{$person->person}}">
                                     <div class="card d-flex flex-row mb-4">
                                         <a class="d-flex" href="#"><img alt="Profile" src="{{asset('img/profile-pic-l-8.jpg')}}" class="img-thumbnail border-0 rounded-circle m-4 list-thumbnail align-self-center"></a>
                                         <div class="d-flex flex-grow-1 min-width-zero">
@@ -56,8 +56,8 @@
                                                         <p class="list-item-heading mb-1 truncate">{{$person->name}}</p>
                                                     </a>
                                                     <p class="mb-2 text-muted text-small">Head Developer</p>
-                                                    <button type="button" class="btn btn-xs btn-outline-info blockcontact mr-2" id="{{$person->id}}-block">@if($contact[$person->id] == 'on') Block @else Unblock @endif</button>
-                                                    <button type="button" class="btn btn-xs btn-outline-danger removecontact" id="{{$person->id}}-remove">Remove</button>
+                                                    <button type="button" class="btn btn-xs btn-outline-info blockcontact mr-2" id="{{$person->person}}-block">@if($person->status) Block @else Unblock @endif</button>
+                                                    <button type="button" class="btn btn-xs btn-outline-danger removecontact" id="{{$person->person}}-remove">Remove</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -437,7 +437,7 @@
         if(person != ''){
             $.ajax({
                 type:'POST',
-                url:'/searchcontact',
+                url:'{{route("searchcontact")}}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': person,
@@ -460,7 +460,7 @@
         var person = clicked.attr('id');
         $.ajax({
                 type:'POST',
-                url:'/sendrequest',
+                url:'{{ route("sendrequest") }}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': parseInt(person),
@@ -481,7 +481,7 @@
         var person = clicked.attr('id');
         $.ajax({
                 type:'POST',
-                url:'/acceptrequest',
+                url:'{{ route("acceptrequest") }}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': parseInt(person),
@@ -504,7 +504,7 @@
         var person = clicked.attr('id');
         $.ajax({
                 type:'POST',
-                url:'/rejectrequest',
+                url:'{{ route("rejectrequest") }}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': parseInt(person),
@@ -528,14 +528,15 @@
         var person = clicked.attr('id');
         $.ajax({
                 type:'POST',
-                url:'/blockcontact',
+                url:'{{ route("blockcontact") }}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': parseInt(person),
                 },
                 success:function(data) {
-                    clicked.html(data.button);
-
+                    // clicked.html(data.button);
+                    if(clicked.text()== 'Block') clicked.html('Unblock');
+                    else clicked.html('Block');
                 },
                 error: function (data, textStatus, errorThrown) {
                 console.log(data);
@@ -549,7 +550,7 @@
         var person = $(this).attr('id');
         $.ajax({
                 type:'POST',
-                url:'/removecontact',
+                url:'{{ route("removecontact") }}',
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'person': parseInt(person),

@@ -348,6 +348,27 @@
     $(document).ready(function(){
         $('#conversation').hide();
     });
+    function getRandomString() {
+        if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
+            var a = window.crypto.getRandomValues(new Uint32Array(3)),
+                token = '';
+            for (var i = 0, l = a.length; i < l; i++) {
+                token += a[i].toString(36);
+            }
+            return token;
+        } else {
+            return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+        }
+    }
+
+    function getFileName(fileExtension) {
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var date = d.getDate();
+        return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
+    }
+
 
 </script>
 {{-- get recent messages --}}
@@ -365,7 +386,10 @@
                 'invoice_id': parseInt(id),
             },
             success:function(data) {
-                $('#recentmessages').replaceWith(data);
+                if($('#recentmessages').is(':visible')){
+                    $('#recentmessages').replaceWith(data);
+                }else
+                $('#conversation').replaceWith(data);
             },
             error: function (data, textStatus, errorThrown) {
             console.log(data);
@@ -427,13 +451,16 @@
     $(document).on('click','#startaudio',function(){
         $("#audioRecord").modal()
     });
-    function sendAudio(adata){
+    function sendAudio(blob){
+        var file = new File([blob], getFileName('mp3'), {
+            type: 'audio/mp3'
+        });
         var invoice_id = $('[name="invoice"]').val();
         var formData = new FormData();
-        formData.append('file', adata);
+        formData.append('file', file);
         formData.append('type', 'invoice');
         formData.append('id', invoice_id);
-        console.log('upload recording ' + adata + ' to server');
+        console.log('upload recording ' + file + ' to server');
         // start upload
         $.ajax({
             type:'POST',
@@ -459,13 +486,16 @@
     $(document).on('click','#startvideo',function(){
         $("#videoRecord").modal()
     });
-    function sendVideo(vdata){
+    function sendVideo(blob){
+        var file = new File([blob], getFileName('webm'), {
+            type: 'video/webm'
+        });
         var invoice_id = $('[name="invoice"]').val();
         var formData = new FormData();
-        formData.append('file', vdata);
+        formData.append('file', file);
         formData.append('type', 'invoice');
         formData.append('id', invoice_id);
-        console.log('upload recording ' + vdata + ' to server');
+        console.log('upload recording ' + file + ' to server');
         // start upload
         $.ajax({
             type:'POST',
@@ -488,6 +518,51 @@
     }
 </script>
 @include('user.chat.captureimage')
+<script>
+    function take_snapshot1() {
+        // take snapshot and get image data
+        Webcam.snap( function(data_uri) {
+            // display results in page
+            //var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+            $("#image1").val(data_uri);
+            document.getElementById('my_camera1').innerHTML ='<img src="'+data_uri+'"/>';
+        } );
+        $('#takepicture').hide();
+        $('.retakepicture').show();
+    }
+
+    $('#sendCapture').click(function(){
+        var invoice_id = $('[name="invoice"]').val();
+        var captured = $('#image1').val();
+        var blob = dataURItoBlob(captured);
+        var file = new File([blob], getFileName('jpg'), {
+            type: 'image/jpeg'
+        });
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('type', 'invoice');
+        formData.append('id', invoice_id);
+
+        $.ajax({
+            type:'POST',
+            url:'{{ route("chatsendCaptured") }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success:function(data) {
+                $('#converse').append(data);
+                $("#imageCapture").modal('hide');
+                Webcam.reset();
+            },
+            error: function (data, textStatus, errorThrown) {
+            console.log(data);
+            },
+        });
+    });
+</script>
 @include('user.chat.uploadfile')
 
 @endpush

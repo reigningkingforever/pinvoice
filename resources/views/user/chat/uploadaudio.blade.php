@@ -46,7 +46,7 @@
         audio = newAudio;
     }
 
-    function stopRecordingCallback() {
+    function stopAudioRecordingCallback() {
         replaceAudio(URL.createObjectURL(recorder.getBlob()));
 
         btnStartRecording.disabled = false;
@@ -152,7 +152,7 @@
 
     btnStopRecording.onclick = function() {
         this.disabled = true;
-        recorder.stopRecording(stopRecordingCallback);
+        recorder.stopRecording(stopAudioRecordingCallback);
     };
 
     btnReleaseMicrophone.onclick = function() {
@@ -191,11 +191,10 @@
         this.disabled = true;
         if(!recorder || !recorder.getBlob()) return;
         var blob = recorder.getBlob();
-        var file = new File([blob], getFileName('mp3'), {
-            type: 'audio/mp3'
-        });
-        sendAudio(file);
-
+        // var file = new File([blob], getFileName('mp3'), {
+        //     type: 'audio/mp3'
+        // });
+        sendAudio(blob);
     };
 
     function click(el) {
@@ -205,26 +204,26 @@
         el.dispatchEvent(evt);
     }
 
-    function getRandomString() {
-        if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
-            var a = window.crypto.getRandomValues(new Uint32Array(3)),
-                token = '';
-            for (var i = 0, l = a.length; i < l; i++) {
-                token += a[i].toString(36);
-            }
-            return token;
-        } else {
-            return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
-        }
-    }
+    // function getRandomString() {
+    //     if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
+    //         var a = window.crypto.getRandomValues(new Uint32Array(3)),
+    //             token = '';
+    //         for (var i = 0, l = a.length; i < l; i++) {
+    //             token += a[i].toString(36);
+    //         }
+    //         return token;
+    //     } else {
+    //         return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+    //     }
+    // }
 
-    function getFileName(fileExtension) {
-        var d = new Date();
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var date = d.getDate();
-        return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
-    }
+    // function getFileName(fileExtension) {
+    //     var d = new Date();
+    //     var year = d.getFullYear();
+    //     var month = d.getMonth();
+    //     var date = d.getDate();
+    //     return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
+    // }
 
     function SaveToDisk(fileURL, fileName) {
         // for non-IE

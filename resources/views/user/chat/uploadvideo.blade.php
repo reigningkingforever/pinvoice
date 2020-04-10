@@ -10,7 +10,7 @@
         });
     }
 
-    function stopRecordingCallback() {
+    function stopVideoRecordingCallback() {
         video.src = video.srcObject = null;
         video.muted = false;
         video.volume = 1;
@@ -44,7 +44,7 @@
             };
             recorder = RecordRTC(camera, myOptions);
             // var recordingDuration = 5000;
-            // recorder.setRecordingDuration(recordingDuration).onRecordingStopped(stopRecordingCallback);
+            // recorder.setRecordingDuration(recordingDuration).onRecordingStopped(stopVideoRecordingCallback);
 
             recorder.startRecording();
 
@@ -59,7 +59,7 @@
     document.getElementById('btn-stop-video-recording').onclick = function() {
         this.disabled = true;
         document.getElementById('btn-start-video-recording').disabled = false;
-        recorder.stopRecording(stopRecordingCallback);
+        recorder.stopRecording(stopVideoRecordingCallback);
 
     };
 
@@ -67,33 +67,33 @@
         this.disabled = true;
         if(!recorder || !recorder.getBlob()) return;
         var blob = recorder.getBlob();
-        var file = new File([blob], getFileName('webm'), {
-            type: 'video/webm'
-        });
-        sendVideo(file);
-        
+        // var file = new File([blob], getFileName('webm'), {
+        //     type: 'video/webm'
+        // });
+        sendVideo(blob);
+
     };
 
     // this function is used to generate random file name
-    function getFileName(fileExtension) {
-        var d = new Date();
-        var year = d.getUTCFullYear();
-        var month = d.getUTCMonth();
-        var date = d.getUTCDate();
-        return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
-    }
+    // function getFileName(fileExtension) {
+    //     var d = new Date();
+    //     var year = d.getUTCFullYear();
+    //     var month = d.getUTCMonth();
+    //     var date = d.getUTCDate();
+    //     return 'RecordRTC-' + year + month + date + '-' + getRandomString() + '.' + fileExtension;
+    // }
 
-    function getRandomString() {
-        if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
-            var a = window.crypto.getRandomValues(new Uint32Array(3)),
-                token = '';
-            for (var i = 0, l = a.length; i < l; i++) {
-                token += a[i].toString(36);
-            }
-            return token;
-        } else {
-            return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
-        }
-    }
+    // function getRandomString() {
+    //     if (window.crypto && window.crypto.getRandomValues && navigator.userAgent.indexOf('Safari') === -1) {
+    //         var a = window.crypto.getRandomValues(new Uint32Array(3)),
+    //             token = '';
+    //         for (var i = 0, l = a.length; i < l; i++) {
+    //             token += a[i].toString(36);
+    //         }
+    //         return token;
+    //     } else {
+    //         return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+    //     }
+    // }
 
 </script>

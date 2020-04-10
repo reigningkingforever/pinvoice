@@ -16,8 +16,8 @@ class CreateContactsTable extends Migration
         Schema::create('contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->json('people');
-            //contacts[id1=>'active',id2=>'blocked',id3=>'active'])
+            $table->unsignedBigInteger('person');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

@@ -86,9 +86,6 @@
     /* .list-thumbnail{height:100px !important;} */
     .text-responsive{font-size:calc(100% + 1vw + 1vh);}
 
-    #uploadfile{
-        display:none;
-    }
     .intercom-composer-popover{
         left:0px !important;
     }

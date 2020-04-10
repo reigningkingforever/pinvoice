@@ -23,18 +23,26 @@ class InvoiceController extends Controller
         return view('user.invoice.invoice',compact('sentInvoice','receivedInvoice','recentMessages'));
     }
     public function create(){
+        
         return view('user.invoice.create');
     }
     public function save(Request $request){
-        dd($request->all());
+
+        // dd($request->product['audio']);
+        // file_put_contents('storage/chat/product.jpg', file_get_contents($request->product['capture'][0]));
+        // return 'success';
     }
 
     public function showConversation(Request $request){
-        $conversation = Conversation::where('assetable_type','App\Invoice')->where('assetable_id',$request->invoice_id)->orderBy('created_at','ASC')->get();
-        foreach($conversation->where('user_id','!=',Auth::id()) as $converse){
-            $converse->status = true;
-            $converse->save();
+        $invoice_id = $request->invoice_id;
+        $conversation = Conversation::where('assetable_type','App\Invoice')->where('assetable_id',$invoice_id)->orderBy('created_at','ASC')->get();
+        //dd($conversation);
+        if($conversation){
+            foreach($conversation->where('user_id','!=',Auth::id()) as $converse){
+                $converse->status = true;
+                $converse->save();
+            }
         }
-        return view('user.chat.conversation',compact('conversation'));
+        return view('user.chat.conversation',compact('conversation','invoice_id'));
     }
 }

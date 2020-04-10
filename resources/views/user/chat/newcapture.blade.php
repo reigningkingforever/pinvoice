@@ -17,6 +17,18 @@
 
     $('.retakepicture').hide();
 
+    function take_snapshot1() {
+        // take snapshot and get image data
+        Webcam.snap( function(data_uri) {
+            // display results in page
+            //var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+            $("#image1").val(data_uri);
+            document.getElementById('my_camera1').innerHTML ='<img src="'+data_uri+'"/>';
+        } );
+        $('#takepicture').hide();
+        $('.retakepicture').show();
+    }
+
     function dataURItoBlob(dataURI) {
         // convert base64/URLEncoded data component to raw binary data held in a string
         var byteString;
@@ -52,5 +64,35 @@
         $('#takepicture').show();
     }
 
+    $('#sendCapture').click(function(){
+        var invoice_id = $('[name="invoice"]').val();
+        var captured = $('#image1').val();
+        var blob = dataURItoBlob(captured);
+        var file = new File([blob], getFileName('jpg'), {
+            type: 'image/jpeg'
+        });
+        var formData = new FormData();
+        formData.append('file', file);
+        formData.append('type', 'invoice');
+        formData.append('id', invoice_id);
 
+        $.ajax({
+            type:'POST',
+            url:'{{ route("chatsendCaptured") }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: formData,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,
+            success:function(data) {
+                $('#converse').append(data);
+                $("#imageCapture").modal('hide');
+                Webcam.reset();
+            },
+            error: function (data, textStatus, errorThrown) {
+            console.log(data);
+            },
+        });
+    });
 </script>

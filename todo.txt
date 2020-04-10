@@ -16,7 +16,7 @@ ROLES
 10. visitors,
 a1.Staff permissions (ability to send invoice, make payment, add invoice template, manage company profile, etc)
 a2.get notified of staff activities
-a3.create invoice and send, check if user is in contact and is on...change contact table for many to many
+a3.create invoice and send, check if user is in contact and is on...
 a4.role middleware
 add search to chat
 
