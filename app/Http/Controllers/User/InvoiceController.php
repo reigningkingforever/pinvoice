@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Contact;
 use App\Conversation;
+use App\Currency;
 use App\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -23,8 +25,9 @@ class InvoiceController extends Controller
         return view('user.invoice.invoice',compact('sentInvoice','receivedInvoice','recentMessages'));
     }
     public function create(){
-        
-        return view('user.invoice.create');
+        $contacts = Contact::where('user_id',Auth::id())->get();
+        $currencies = Currency::all();
+        return view('user.invoice.create',compact('contacts','currencies'));
     }
     public function save(Request $request){
 

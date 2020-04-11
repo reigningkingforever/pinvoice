@@ -309,13 +309,12 @@
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Select Contacts</label>
-                                                        <select name="receiver[]" class="form-control select2-single" data-width="100%" multiple>
-                                                            <option label="&nbsp;">Abraham Johnson</option>
-                                                            <option value="0">John Maxwell</option>
-                                                            <option value="1">Alice Bob</option>
-                                                            <option value="2">Multiple Select</option>
-                                                            <option value="3">Checkbox</option>
-                                                            <option value="4">Radiobutton</option>
+                                                        <select name="receiver[]" class="form-control select2-multiple" data-width="100%" multiple>
+                                                            @forelse ($contacts as $contact)
+                                                                <option value="{{$contact->person}}">{{$contact->mycontact->name}}</option>
+                                                            @empty
+                                                                <option value="0">No Contact</option>
+                                                            @endforelse
                                                         </select>
                                                     </div>
 
@@ -347,22 +346,23 @@
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Currency</label>
                                                         <select name="currency" class="form-control select2-single" data-width="100%">
-                                                            <option label="&nbsp;">Naira</option>
-                                                            <option value="0">Dollar</option>
-                                                            <option value="1" selected="selected">Pounds</option>
-                                                            <option value="2">Euro</option>
-                                                            <option value="3">Yen</option>
-                                                            <option value="4">BTC</option>
+                                                            <option value="0" disabled selected>Select Currency</option>
+                                                            @forelse ($currencies as $currency)
+                                                                <option value="{{$currency->id}}" label="{{$currency->symbol}}">{{$currency->name}}</option>
+                                                            @empty
+                                                                <option value="0">No Currency</option>
+                                                            @endforelse
                                                         </select>
                                                     </div>
 
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend"><span class="input-group-text">Tax</span></div>
                                                         <input type="text" name="tax" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                        <input type="hidden" name="tax_type" value="%">
                                                         <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%</button>
+                                                            <button class="btn btn-outline-secondary dropdown-toggle" id="tax_type" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%</button>
                                                             <div class="dropdown-menu">
-                                                                <a class="dropdown-item" href="#">.00</a>
+                                                                <a class="dropdown-item" href="#" id="tax_option">.00</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -370,21 +370,23 @@
                                                         <div class="input-group col-xs-6">
                                                             <div class="input-group-prepend"><span class="input-group-text">Discount </span></div>
                                                             <input type="text" name="discount" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                            <input type="hidden" name="discount_type" value=".00">
                                                             <div class="input-group-append">
-                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
+                                                                <button class="btn btn-outline-secondary dropdown-toggle" id="discount_type" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="#">%</a>
+                                                                    <a class="dropdown-item" href="#" id="discount_option">%</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-xs-6 mb-0">
                                                             <select name="discountexpiry" id="discountexpiry" class="form-control ">
-                                                                <option selected="selected">Discount expiry</option>
-                                                                <option>No expiry</option>
-                                                                <option>24 hours</option>
-                                                                <option>2 days</option>
-                                                                <option>3 days</option>
-                                                                <option>4 days</option>
+                                                                <option value="0" selected="selected">Discount expiry</option>
+                                                                <option value="0">No expiry</option>
+                                                                <option value="1">24 hours</option>
+                                                                <option value="2">2 days</option>
+                                                                <option value="3">3 days</option>
+                                                                <option value="4">4 days</option>
+                                                                <option value="5">5 days</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -392,21 +394,23 @@
                                                         <div class="input-group col-xs-6">
                                                             <div class="input-group-prepend"><span class="input-group-text">Penalty </span></div>
                                                             <input type="text" name="penalty" class="form-control" placeholder="0" aria-label="Text input with dropdown button">
+                                                            <input type="hidden" name="penalty_type" value=".00">
                                                             <div class="input-group-append">
-                                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
+                                                                <button class="btn btn-outline-secondary dropdown-toggle" id="penalty_type" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">.00</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="#">%</a>
+                                                                    <a class="dropdown-item" href="#" id="penalty_option">%</a>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group col-xs-6 mb-0">
                                                             <select name="penaltyperiod" id="penaltyperiod" class="form-control">
-                                                                <option selected="selected">Apply after</option>
-                                                                <option>No penalty</option>
-                                                                <option>24 hours</option>
-                                                                <option>2 days</option>
-                                                                <option>3 days</option>
-                                                                <option>4 days</option>
+                                                                <option value="0" selected="selected">Apply after</option>
+                                                                <option value="0">No penalty</option>
+                                                                <option value="1">24 hours</option>
+                                                                <option value="2">2 days</option>
+                                                                <option value="3">3 days</option>
+                                                                <option value="4">4 days</option>
+                                                                <option value="5">5 days</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -431,20 +435,28 @@
                                                         <label>Add Note</label>
                                                         <input name="note" class="form-control" type="text" placeholder="About this invoice">
                                                     </div>
-                                                    <div class="form-group mb-5">
+                                                    <div class="form-group mb-3">
                                                         <label>Attach Media</label>
                                                         <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
                                                             <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
                                                             <input id="uploadfile" type="file" name="invoicefile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none"/>
                                                             <button type="button" id="invoicecamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-                                                            <input type="file" name="invoicecamera" style="display:none"/>
+                                                            <input type="hidden" name="invoicecamera" style="display:none"/>
                                                             <button type="button" id="invoiceaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-                                                            <input type="file" name="invoiceaudio" style="display:none"/>
+                                                            <input type="hidden" name="invoiceaudio" style="display:none"/>
                                                             <button type="button" id="invoicevideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
-                                                            <input type="file" name="invoicevideo" style="display:none"/>
+                                                            <input type="hidden" name="invoicevideo" style="display:none"/>
 
                                                         </div>
+
                                                     </div>
+                                                    <ul class="d-flex list-unstyled productmedia">
+                                                        <li class="mx-2" id="invoicefilename" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="invoiceaudioname" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="invoicevideoname" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="invoicecapturename" style="cursor:pointer"></li>
+                                                    </ul>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -509,7 +521,7 @@
                                                     <label>Amount</label>
                                                     <div class="input-group mb-3">
                                                         <div class="input-group-prepend">
-                                                            <span class="input-group-text">$</span>
+                                                            <span class="input-group-text amount">$</span>
                                                         </div>
                                                         <input type="text" name="product[amount][]" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
                                                         <div class="input-group-append">
@@ -577,12 +589,6 @@
             <div class="modal-body">
 
                 <div class="call-container">
-                    {{-- <div class="current-user">
-                        <i class="simple-icon-microphone h3"></i>
-                    </div>
-                    <h5 class="calling-user-name">
-                        Click Record to begin recording<span class="calling">Recording...</span>
-                    </h5> --}}
                     <div class="d-flex justify-content-center"><video controls autoplay playsinline></video></div>
                     <div id="controls" class="d-flex justify-content-around mt-1">
                         <button id="btn-start-video-recording" class="btn btn-primary">Start</button>
@@ -659,6 +665,61 @@
     var formElement = document.getElementById('invoicecreateform');
     var formData = new FormData(formElement);
     var caller;
+    //currency//
+    $('select[name="currency"]').change(function(){
+       var symbol = $(this).find("option:selected").attr('label');
+        $('.amount').html(symbol);
+    });
+    $('#tax_option').click(function(e){
+        e.preventDefault();
+       let new_option = $(this).html();
+       $('input[name="tax_type"]').val(new_option);
+       let old_option = $('#tax_type').html();
+        $('#tax_type').html(new_option);
+        $(this).html(old_option);
+    });
+    $('#discount_option').click(function(e){
+        e.preventDefault();
+       let new_option = $(this).html();
+       $('input[name="discount_type"]').val(new_option);
+       let old_option = $('#discount_type').html();
+        $('#discount_type').html(new_option);
+        $(this).html(old_option);
+    });
+    $('#penalty_option').click(function(e){
+        e.preventDefault();
+       let new_option = $(this).html();
+       $('input[name="penalty_type"]').val(new_option);
+       let old_option = $('#penalty_type').html();
+        $('#penalty_type').html(new_option);
+        $(this).html(old_option);
+    });
+    $('#upload_link').click(function(e){
+        e.preventDefault();
+        $("#uploadfile:hidden").trigger('click');
+    });
+    $('#uploadfile').change(function () {
+        $('#invoicefilename').html($(this)[0].files[0].name +'<i class="simple-icon-close text-danger ml-1"></i>');
+    });
+    $('#invoicefilename').click(function(){
+        $("#uploadfile:hidden").val('');
+        $(this).html('');
+    });
+
+    $('#invoicecamera').click(function(){
+        $("#imageCapture").modal();
+        Webcam.set({
+            width: 400,
+            height: 350,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+        });
+        Webcam.attach('#my_camera1');
+        $('#my_camera1').width('100%');
+        $('#my_camera1 video').width('100%');
+        $('#my_camera1 video').height('100%');
+    });
+
     $(document).on('click','#startvideo',function(){
         caller = 'product number/ extra'
         $("#videoRecord").modal();
@@ -667,10 +728,7 @@
         caller = null;
         $("#audioRecord").modal();
     });
-    $(document).on('click','#upload_link',function(e){
-        e.preventDefault();
-        $("#uploadfile:hidden").trigger('click');
-    });
+
 </script>
 
 <script>

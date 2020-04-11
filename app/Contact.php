@@ -12,7 +12,10 @@ class Contact extends Model
     ];
     protected $fillable = ['people'];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function me(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function mycontact(){
+        return $this->belongsTo(User::class,'person');
     }
 }

@@ -149,7 +149,6 @@
                 <li><a href="{{route('admin.security')}}"><i class="iconsminds-firewall"></i> Security</a></li>
                 <li><a href="{{route('admin.settings')}}"><i class="simple-icon-settings"></i> Settings</a></li>
                 <li><a href="#invoice"><i class="iconsminds-digital-drawing"></i> Invoice & Escrow</a></li>
-
                 <li><a href="#support"><i class="simple-icon-support"></i> Support</a></li>
                 <li><a href="#users"><i class="simple-icon-people"></i> Users</a></li>
                 <li><a href="#payment"><i class="iconsminds-coins"></i> Payment</a></li>
