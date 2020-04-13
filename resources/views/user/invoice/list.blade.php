@@ -99,22 +99,29 @@
                             <div class="col-12 list" data-check-all="checkAll" id="receivedinvoice">
                                 @forelse ($receivedInvoice as $received)
                                     <div class="card d-flex flex-row mb-3">
-                                        <a class="d-flex" href="Pages.Product.Detail.html">
+                                        <a class="d-flex" href="{{route('invoice.view',$received)}}">
                                             <img src="{{asset('img/fat-rascal-thumb.jpg')}}" alt="Fat Rascal" class="list-thumbnail responsive border-0 card-img-left">
                                         </a>
                                         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
                                             <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                                                 <div class="d-flex justify-content-between w-40 w-sm-100">
-                                                    <a href="Pages.Product.Detail.html">
-                                                        <p class="list-item-heading mb-0 truncate">Invoice#{{$received->id}}</p>
+                                                    <a href="{{route('invoice.view',$received)}}">
+                                                        <p class="list-item-heading text-muted mb-0 truncate">From: {{$received->getSeller->name}}</p>
                                                     </a>
-                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$received->id}}-chat">
+                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$received->id}}-chat" style="cursor:pointer;">
                                                         <i class="iconsminds-speach-bubbles" ></i>
                                                     </a>
                                                 </div>
-                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">Cupcakes</p>
-                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">13.04.2018</p>
-                                                <div class="w-15 w-sm-100"><span class="badge badge-pill badge-primary">PROCESSED</span></div>
+                                                <p class="mb-0 w-15 w-sm-100">{{$received->getCurrency->symbol.' '.$received->products->sum('amount')}}</p>
+                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">{{date_format($received->created_at,'d.m.Y')}}</p>
+                                                <div class="w-15 w-sm-100">
+                                                    @if($received->status =="paid")
+                                                    <span class="badge badge-pill badge-success">
+                                                         {{strtoupper($received->status)}}</span>
+                                                    @else
+                                                        <a href="#"><span class="badge badge-pill badge-outline-primary mb-1">PAY NOW</span></a>
+                                                    @endif
+                                                </div>
                                             </div>
                                             <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
                                                 <input type="checkbox" class="custom-control-input">
@@ -122,22 +129,23 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <nav class="mt-4 mb-3">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item"><a class="page-link first" href="#"><i class="simple-icon-control-start"></i></a></li>
-                                            <li class="page-item"><a class="page-link prev" href="#"><i class="simple-icon-arrow-left"></i></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link next" href="#" aria-label="Next"><i class="simple-icon-arrow-right"></i></a></li>
-                                            <li class="page-item"><a class="page-link last" href="#"><i class="simple-icon-control-end"></i></a></li>
-                                        </ul>
-                                    </nav>
+
                                 @empty
                                 <div class="card d-flex flex-row mb-3">
                                     No received invoice
                                 </div>
                                 @endforelse
+                                <nav class="mt-4 mb-3">
+                                    <ul class="pagination justify-content-center mb-0">
+                                        <li class="page-item"><a class="page-link first" href="#"><i class="simple-icon-control-start"></i></a></li>
+                                        <li class="page-item"><a class="page-link prev" href="#"><i class="simple-icon-arrow-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link next" href="#" aria-label="Next"><i class="simple-icon-arrow-right"></i></a></li>
+                                        <li class="page-item"><a class="page-link last" href="#"><i class="simple-icon-control-end"></i></a></li>
+                                    </ul>
+                                </nav>
 
                             </div>
                         </div>
@@ -204,22 +212,31 @@
                             <div class="col-12 list" data-check-all="checkAll" id="sentinvoice">
                                 @forelse ($sentInvoice as $sent)
                                     <div class="card d-flex flex-row mb-3">
-                                        <a class="d-flex" href="Pages.Product.Detail.html">
+                                        <a class="d-flex" href="{{route('invoice.view',$sent)}}">
                                             <img src="{{asset('img/fat-rascal-thumb.jpg')}}" alt="Fat Rascal" class="list-thumbnail responsive border-0 card-img-left">
                                         </a>
                                         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
                                             <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                                                 <div class="d-flex justify-content-between w-40 w-sm-100">
-                                                    <a href="Pages.Product.Detail.html">
-                                                        <p class="list-item-heading mb-0 truncate">Invoice#{{$sent->id}}</p>
+                                                    <a href="{{route('invoice.view',$sent)}}">
+                                                        <p class="list-item-heading text-muted mb-0 truncate">To: {{$sent->getBuyer->name}}</p>
                                                     </a>
-                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$sent->id}}-chat">
+                                                    @if($sent->conversations->isNotEmpty())
+                                                    <a class="bg-primary text-white rounded-circle h4 recent" id="{{$sent->id}}-chat" style="cursor:pointer;">
                                                         <i class="iconsminds-speach-bubbles" ></i>
                                                     </a>
+                                                    @endif
                                                 </div>
-                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">Cupcakes</p>
-                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">13.04.2018</p>
-                                                <div class="w-15 w-sm-100"><span class="badge badge-pill badge-primary">PROCESSED</span></div>
+                                                <p class="mb-0 w-15 w-sm-100">{{$sent->getCurrency->symbol.' '.$sent->products->sum('amount')}}</p>
+                                                <p class="mb-0 text-muted text-small w-15 w-sm-100">{{date_format($sent->created_at,'d.m.Y')}}</p>
+                                                <div class="w-15 w-sm-100">
+                                                    @if($sent->status =="paid")
+                                                    <span class="badge badge-pill badge-secondary">
+                                                         {{strtoupper($sent->status)}}</span>
+                                                    @else
+                                                    <span class="badge badge-pill badge-warning">{{strtoupper($sent->status)}}</span>
+                                                    @endif
+                                                </div>
                                             </div>
                                             <label class="custom-control custom-checkbox mb-1 align-self-center pr-4">
                                                 <input type="checkbox" class="custom-control-input">
@@ -227,22 +244,23 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <nav class="mt-4 mb-3">
-                                        <ul class="pagination justify-content-center mb-0">
-                                            <li class="page-item"><a class="page-link first" href="#"><i class="simple-icon-control-start"></i></a></li>
-                                            <li class="page-item"><a class="page-link prev" href="#"><i class="simple-icon-arrow-left"></i></a></li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link next" href="#" aria-label="Next"><i class="simple-icon-arrow-right"></i></a></li>
-                                            <li class="page-item"><a class="page-link last" href="#"><i class="simple-icon-control-end"></i></a></li>
-                                        </ul>
-                                    </nav>
+
                                 @empty
                                 <div class="card d-flex flex-row mb-3">
                                     No sent invoice
                                 </div>
                                 @endforelse
+                                <nav class="mt-4 mb-3">
+                                    <ul class="pagination justify-content-center mb-0">
+                                        <li class="page-item"><a class="page-link first" href="#"><i class="simple-icon-control-start"></i></a></li>
+                                        <li class="page-item"><a class="page-link prev" href="#"><i class="simple-icon-arrow-left"></i></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link next" href="#" aria-label="Next"><i class="simple-icon-arrow-right"></i></a></li>
+                                        <li class="page-item"><a class="page-link last" href="#"><i class="simple-icon-control-end"></i></a></li>
+                                    </ul>
+                                </nav>
 
                             </div>
 

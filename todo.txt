@@ -1,3 +1,24 @@
+  "receiver" => array:1 [▶]
+  "currency" => "1"
+  "tax" => "5"
+  "tax_type" => "%"
+  "discount" => "15"
+  "discount_type" => ".00"
+  "discountexpiry" => "2"
+  "penalty" => "10"
+  "penalty_type" => ".00"
+  "penaltyperiod" => "4"
+  "escrowfee" => "sender"
+  "note" => "Sint minus asperior"
+  "invoicecamera" => "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFB ▶"
+  "invoiceaudio" => null
+  "invoicevideo" => null
+  "product" => array:9 [▶]
+  "invoicefile" => Illuminate\Http\UploadedFile {#392 ▶}
+]
+
+
+
 [upload funds
 withdraw funds
 transfer funds] -> should I implement flutter?

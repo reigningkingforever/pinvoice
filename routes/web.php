@@ -70,6 +70,7 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
 
     Route::get('invoice','InvoiceController@index')->name('invoice');
     Route::get('invoice/create','InvoiceController@create')->name('invoice.create');
+    Route::get('invoice/view/{invoice}','InvoiceController@view')->name('invoice.view');
     Route::post('invoice/save','InvoiceController@save')->name('invoice.save');
     Route::post('invoice/showconversation','InvoiceController@showconversation')->name('invoiceconversation');
     Route::get('escrow','EscrowController@index')->name('escrow');

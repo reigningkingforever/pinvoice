@@ -59,10 +59,10 @@ class User extends Authenticatable
         return $this->role_id == Role::whereName($value)->first()->id? true:false;
     }
     public function sent_invoices(){
-        return $this->hasMany(Invoice::class,'seller');
+        return $this->hasMany(Invoice::class,'seller')->with('products');
     }
     public function received_invoices(){
-        return $this->hasMany(Invoice::class,'buyer');
+        return $this->hasMany(Invoice::class,'buyer')->with('products');
     }
     public function sent_invitations(){
         return $this->hasMany(Invitation::class,'sender_id');

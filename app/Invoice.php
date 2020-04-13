@@ -3,6 +3,8 @@
 namespace App;
 
 use App\User;
+use App\Media;
+use App\Product;
 use App\Currency;
 use App\Conversation;
 use Illuminate\Database\Eloquent\Model;
@@ -26,5 +28,11 @@ class Invoice extends Model
     public function conversations()
     {
         return $this->morphMany(Conversation::class,'assetable');
+    }
+    public function products(){
+        return $this->morphToMany(Product::class,'productible');
+    }
+    public function media(){
+        return $this->morphToMany(Media::class,'mediable');
     }
 }

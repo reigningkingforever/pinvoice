@@ -309,7 +309,7 @@
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Select Contacts</label>
-                                                        <select name="receiver[]" class="form-control select2-multiple" data-width="100%" multiple>
+                                                        <select name="receiver[]" class="form-control select2-multiple" data-width="100%" multiple required>
                                                             @forelse ($contacts as $contact)
                                                                 <option value="{{$contact->person}}">{{$contact->mycontact->name}}</option>
                                                             @empty
@@ -345,7 +345,7 @@
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Currency</label>
-                                                        <select name="currency" class="form-control select2-single" data-width="100%">
+                                                        <select name="currency" class="form-control select2-single" data-width="100%" required>
                                                             <option value="0" disabled selected>Select Currency</option>
                                                             @forelse ($currencies as $currency)
                                                                 <option value="{{$currency->id}}" label="{{$currency->symbol}}">{{$currency->name}}</option>
@@ -511,11 +511,11 @@
                                                     <div class="form-row">
                                                         <div class="form-group col-xs-6">
                                                             <label for="inputEmail4">Quantity</label>
-                                                            <input type="number" name="product[quantity][]" class="form-control" id="inputEmail4" placeholder="1">
+                                                            <input type="number" name="product[quantity][]" required value="1" class="form-control quantity" placeholder="1">
                                                         </div>
                                                         <div class="form-group col-xs-6">
                                                             <label for="inputPassword4">Unit Cost</label>
-                                                            <input type="number" name="product[cost][]" class="form-control" id="inputPassword4" placeholder="0">
+                                                            <input type="number" name="product[cost][]" required value="0" class="form-control cost" placeholder="0">
                                                         </div>
                                                     </div>
                                                     <label>Amount</label>
@@ -523,7 +523,7 @@
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text amount">$</span>
                                                         </div>
-                                                        <input type="text" name="product[amount][]" readonly class="form-control" aria-label="Amount (to the nearest dollar)">
+                                                        <input type="text" name="product[amount][]" readonly  required class="form-control amount" aria-label="Amount (to the nearest dollar)">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">.00</span>
                                                         </div>
@@ -625,7 +625,6 @@
 </div>
 @endsection
 @push('scripts')
-<script src="{{asset('js/vendor/progressbar.min.js')}}"></script>
 <script src="{{asset('js/vendor/jquery.autoellipsis.js')}}"></script>
 <script src="{{asset('js/vendor/Sortable.js')}}"></script>
 <script src="{{asset('js/vendor/select2.full.js')}}"></script>
@@ -694,6 +693,20 @@
         $('#penalty_type').html(new_option);
         $(this).html(old_option);
     });
+
+    $(document).on('input','.cost',function(){
+        let amount = $(this).closest('.product').find('.amount');
+        let quantity = $(this).closest('.product').find('.quantity');
+        let cost = $(this);
+        amount.val(parseInt(quantity.val()) * parseInt(cost.val()));
+    });
+    $(document).on('input','.quantity',function(){
+        let amount = $(this).closest('.product').find('.amount');
+        let cost = $(this).closest('.product').find('.cost');
+        let quantity = $(this);
+        amount.val(parseInt(quantity.val()) * parseInt(cost.val()));
+    });
+
     $('#upload_link').click(function(e){
         e.preventDefault();
         $("#uploadfile:hidden").trigger('click');
@@ -705,8 +718,8 @@
         $("#uploadfile:hidden").val('');
         $(this).html('');
     });
-
     $('#invoicecamera').click(function(){
+        caller = $(this).attr('id');
         $("#imageCapture").modal();
         Webcam.set({
             width: 400,
@@ -719,16 +732,26 @@
         $('#my_camera1 video').width('100%');
         $('#my_camera1 video').height('100%');
     });
-
-    $(document).on('click','#startvideo',function(){
-        caller = 'product number/ extra'
-        $("#videoRecord").modal();
+    $('#invoicecapturename').click(function(){
+        $("#uploadfile:hidden").val('');
+        $(this).html('');
     });
-    $(document).on('click','#startaudio',function(){
-        caller = null;
+    $('#invoiceaudio').click(function(){
+        caller = $(this).attr('id');
         $("#audioRecord").modal();
     });
-
+    $('#invoiceaudioname').click(function(){
+        $("input[name='invoiceaudio']:hidden").val('');
+        $(this).html('');
+    });
+    $('#invoicevideo').click(function(){
+        caller = $(this).attr('id');
+        $("#videoRecord").modal();
+    });
+    $('#invoicevideoname').click(function(){
+        $("input[name='invoicevideo']:hidden").val('');
+        $(this).html('');
+    });
 </script>
 
 <script>
@@ -757,12 +780,19 @@
         reader.readAsDataURL(adata);
         reader.onloadend = function() {
             var base64data = reader.result;
-            $(caller).next("input[name='product[audio][]']:hidden").val(base64data);
+            if(caller == 'invoiceaudio'){
+                $("input[name='invoiceaudio']:hidden").val(data_uri);
+                $('#invoiceaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
+            }
+            else{
+                $(caller).next("input[name='product[audio][]']:hidden").val(base64data);
+                $(caller).closest('.product').find('.productaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
+            }
             console.log(base64data);
         }
         $("#audioRecord").modal('hide');
-        $(caller).closest('.product').find('.productaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
     }
+
     $(document).on('click','.productaudioname',function(e){
         $(this).closest('.product').find("input[name='product[audio][]']:hidden").val('');
         $(this).html('');
@@ -773,17 +803,26 @@
         caller = this;
         $("#videoRecord").modal();
     });
+
     function sendVideo(vdata){
         var reader = new FileReader();
         reader.readAsDataURL(vdata);
         reader.onloadend = function() {
             var base64data = reader.result;
-            $(caller).next("input[name='product[video][]']:hidden").val(base64data);
+            if(caller == 'invoicevideo'){
+                $("input[name='invoicevideo']:hidden").val(data_uri);
+                $('#invoicevideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
+            }
+            else{
+                $(caller).next("input[name='product[video][]']:hidden").val(base64data);
+                $(caller).closest('.product').find('.productvideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
+            }
             console.log(base64data);
         }
         $("#videoRecord").modal('hide');
-        $(caller).closest('.product').find('.productvideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
+
     }
+
     $(document).on('click','.productvideoname',function(e){
         $(this).closest('.product').find("input[name='product[video][]']:hidden").val('');
         $(this).html('');
@@ -805,20 +844,30 @@
         $('#my_camera1 video').width('100%');
         $('#my_camera1 video').height('100%');
     });
+
     $('#sendCapture').click(function(){
         Webcam.reset();
+        $('#takepicture').show();
+        $('.retakepicture').hide();
         $("#imageCapture").modal('hide');
     });
 
     function take_snapshot1() {
         // take snapshot and get image data
         Webcam.snap( function(data_uri) {
-            $(caller).next("input[name='product[capture][]']:hidden").val(data_uri);
+            if(caller == 'invoicecamera'){
+                $("input[name='invoicecamera']:hidden").val(data_uri);
+                $('#invoicecapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
+            }
+            else{
+                $(caller).next("input[name='product[capture][]']:hidden").val(data_uri);
+                $(caller).closest('.product').find('.productcapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
+            }
             document.getElementById('my_camera1').innerHTML ='<img src="'+data_uri+'"/>';
         });
         $('#takepicture').hide();
         $('.retakepicture').show();
-        $(caller).closest('.product').find('.productcapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
+
     }
 
     $(document).on('click','.productcapturename',function(e){
