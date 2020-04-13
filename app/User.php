@@ -6,6 +6,7 @@ use App\Role;
 use App\Wallet;
 use App\Contact;
 use App\Invoice;
+use App\Escrow;
 use App\Profile;
 use App\Invitation;
 use App\Conversation;
@@ -57,6 +58,12 @@ class User extends Authenticatable
     }
     public function isRole($value){
         return $this->role_id == Role::whereName($value)->first()->id? true:false;
+    }
+    public function sent_escrows(){
+        return $this->hasMany(Escrow::class,'seller')->with('products');
+    }
+    public function received_escrows(){
+        return $this->hasMany(Escrow::class,'buyer')->with('products');
     }
     public function sent_invoices(){
         return $this->hasMany(Invoice::class,'seller')->with('products');

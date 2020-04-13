@@ -13,7 +13,7 @@
                 <div class="mb-2">
                     {{-- <h1>Sarah Kortney</h1> --}}
                     <div class="text-zero top-right-button-container">
-                        <a href="{{route('invoice.create')}}" class="btn btn-primary btn-lg top-right-button mr-1">ADD NEW</a>
+                        <a href="{{route('escrow.create')}}" class="btn btn-primary btn-lg top-right-button mr-1">ADD NEW</a>
                         <div class="btn-group">
                             <div class="btn btn-primary btn-lg pl-4 pr-0 check-button">
                                 <label class="custom-control custom-checkbox mb-0 d-inline-block">
@@ -26,14 +26,13 @@
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb pt-0">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Library</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                            <li class="breadcrumb-item active" aria-current="page">Escrow</li>
                         </ol>
                     </nav>
                 </div>
                 <ul class="nav nav-tabs separator-tabs ml-0 mb-5" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" id="first-tab" data-toggle="tab" href="#first" role="tab" aria-controls="first" aria-selected="true">RECEIVED INVOICE</a></li>
-                    <li class="nav-item"><a class="nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab" aria-controls="second" aria-selected="false">SENT INVOICE </a></li>
+                    <li class="nav-item"><a class="nav-link active" id="first-tab" data-toggle="tab" href="#first" role="tab" aria-controls="first" aria-selected="true">RECEIVED ESCROW</a></li>
+                    <li class="nav-item"><a class="nav-link" id="second-tab" data-toggle="tab" href="#second" role="tab" aria-controls="second" aria-selected="false">SENT ESCROW </a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane show active" id="first" role="tabpanel" aria-labelledby="first-tab">
@@ -78,8 +77,8 @@
                                                 </div>
                                             </div>
                                             {{-- <div class="btn-group float-md-left mr-1 mb-1">
-                                                <button class="btn btn-outline-dark btn-xs active" type="button" id="switchsent" >Sent Invoices</button>
-                                                <button class="btn btn-outline-dark btn-xs " type="button" id="switchreceived">Received Invoices</button>
+                                                <button class="btn btn-outline-dark btn-xs active" type="button" id="switchsent" >Sent Escrows</button>
+                                                <button class="btn btn-outline-dark btn-xs " type="button" id="switchreceived">Received Escrows</button>
 
                                             </div> --}}
                                             <div class="search-sm calendar-sm d-inline-block float-md-left mr-1 mb-1 align-top">
@@ -96,16 +95,16 @@
                         </div>
                         <div class="row">
 
-                            <div class="col-12 list" data-check-all="checkAll" id="receivedinvoice">
-                                @forelse ($receivedInvoice as $received)
+                            <div class="col-12 list" data-check-all="checkAll" id="receivedescrow">
+                                @forelse($receivedEscrow as $received)
                                     <div class="card d-flex flex-row mb-3">
-                                        <a class="d-flex" href="{{route('invoice.view',$received)}}">
+                                        <a class="d-flex" href="{{route('escrow.view',$received)}}">
                                             <img src="{{asset('img/fat-rascal-thumb.jpg')}}" alt="Fat Rascal" class="list-thumbnail responsive border-0 card-img-left">
                                         </a>
                                         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
                                             <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                                                 <div class="d-flex justify-content-between w-40 w-sm-100">
-                                                    <a href="{{route('invoice.view',$received)}}">
+                                                    <a href="{{route('escrow.view',$received)}}">
                                                         <p class="list-item-heading text-muted mb-0 truncate">From: {{$received->getSeller->name}}</p>
                                                     </a>
                                                     <a class="bg-primary text-white rounded-circle h4 recent" id="{{$received->id}}-chat" style="cursor:pointer;">
@@ -132,7 +131,7 @@
 
                                 @empty
                                 <div class="card d-flex flex-row mb-3">
-                                    No received invoice
+                                    No received escrow
                                 </div>
                                 @endforelse
                                 <nav class="mt-4 mb-3">
@@ -192,8 +191,8 @@
                                                 </div>
                                             </div>
                                             {{-- <div class="btn-group float-md-left mr-1 mb-1">
-                                                <button class="btn btn-outline-dark btn-xs active" type="button" id="switchsent" >Sent Invoices</button>
-                                                <button class="btn btn-outline-dark btn-xs " type="button" id="switchreceived">Received Invoices</button>
+                                                <button class="btn btn-outline-dark btn-xs active" type="button" id="switchsent" >Sent Escrows</button>
+                                                <button class="btn btn-outline-dark btn-xs " type="button" id="switchreceived">Received Escrows</button>
 
                                             </div> --}}
                                             <div class="search-sm calendar-sm d-inline-block float-md-left mr-1 mb-1 align-top">
@@ -209,16 +208,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 list" data-check-all="checkAll" id="sentinvoice">
-                                @forelse ($sentInvoice as $sent)
+                            <div class="col-12 list" data-check-all="checkAll" id="sentescrow">
+                                @forelse ($sentEscrow as $sent)
                                     <div class="card d-flex flex-row mb-3">
-                                        <a class="d-flex" href="{{route('invoice.view',$sent)}}">
+                                        <a class="d-flex" href="{{route('escrow.view',$sent)}}">
                                             <img src="{{asset('img/fat-rascal-thumb.jpg')}}" alt="Fat Rascal" class="list-thumbnail responsive border-0 card-img-left">
                                         </a>
                                         <div class="pl-2 d-flex flex-grow-1 min-width-zero">
                                             <div class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                                                 <div class="d-flex justify-content-between w-40 w-sm-100">
-                                                    <a href="{{route('invoice.view',$sent)}}">
+                                                    <a href="{{route('escrow.view',$sent)}}">
                                                         <p class="list-item-heading text-muted mb-0 truncate">To: {{$sent->getBuyer->name}}</p>
                                                     </a>
                                                     @if($sent->conversations->isNotEmpty())
@@ -247,7 +246,7 @@
 
                                 @empty
                                 <div class="card d-flex flex-row mb-3">
-                                    No sent invoice
+                                    No sent escrow
                                 </div>
                                 @endforelse
                                 <nav class="mt-4 mb-3">
@@ -398,10 +397,10 @@
         id = $(this).attr('id');
         $.ajax({
             type:'POST',
-            url:'{{ route("invoiceconversation") }}',
+            url:'{{ route("escrowconversation") }}',
             data:{
                 '_token' : $('meta[name="csrf-token"]').attr('content'),
-                'invoice_id': parseInt(id),
+                'escrow_id': parseInt(id),
             },
             success:function(data) {
                 if($('#recentmessages').is(':visible')){
@@ -422,8 +421,8 @@
                     url:'{{ route("chatgetmessages") }}',
                     data:{
                         '_token' : $('meta[name="csrf-token"]').attr('content'),
-                        'id': invoice_id,
-                        'type': "invoice"
+                        'id': escrow_id,
+                        'type': "escrow"
                     },
                     success:function(data) {
                         if(data != 403)
@@ -440,7 +439,7 @@
     });
 </script>
 <script>
-    var invoice_id = $('[name="invoice"]').val();
+    var escrow_id = $('[name="escrow"]').val();
     function sendMessage(e){
         if(event.key === 'Enter' && e.value != ''){
             $.ajax({
@@ -449,8 +448,8 @@
                 data:{
                     '_token' : $('meta[name="csrf-token"]').attr('content'),
                     'message': e.value,
-                    'id': invoice_id,
-                    'type': "invoice"
+                    'id': escrow_id,
+                    'type': "escrow"
                 },
                 success:function(data) {
                     $("#typetext").val('');
@@ -473,11 +472,11 @@
         var file = new File([blob], getFileName('mp3'), {
             type: 'audio/mp3'
         });
-        var invoice_id = $('[name="invoice"]').val();
+        var escrow_id = $('[name="escrow"]').val();
         var formData = new FormData();
         formData.append('file', file);
-        formData.append('type', 'invoice');
-        formData.append('id', invoice_id);
+        formData.append('type', 'escrow');
+        formData.append('id', escrow_id);
         console.log('upload recording ' + file + ' to server');
         // start upload
         $.ajax({
@@ -508,11 +507,11 @@
         var file = new File([blob], getFileName('webm'), {
             type: 'video/webm'
         });
-        var invoice_id = $('[name="invoice"]').val();
+        var escrow_id = $('[name="escrow"]').val();
         var formData = new FormData();
         formData.append('file', file);
-        formData.append('type', 'invoice');
-        formData.append('id', invoice_id);
+        formData.append('type', 'escrow');
+        formData.append('id', escrow_id);
         console.log('upload recording ' + file + ' to server');
         // start upload
         $.ajax({
@@ -550,7 +549,7 @@
     }
 
     $('#sendCapture').click(function(){
-        var invoice_id = $('[name="invoice"]').val();
+        var escrow_id = $('[name="escrow"]').val();
         var captured = $('#image1').val();
         var blob = dataURItoBlob(captured);
         var file = new File([blob], getFileName('jpg'), {
@@ -558,8 +557,8 @@
         });
         var formData = new FormData();
         formData.append('file', file);
-        formData.append('type', 'invoice');
-        formData.append('id', invoice_id);
+        formData.append('type', 'escrow');
+        formData.append('id', escrow_id);
 
         $.ajax({
             type:'POST',

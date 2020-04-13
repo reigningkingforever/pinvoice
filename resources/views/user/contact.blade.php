@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-2">
-                    <h1>Sarah Kortney</h1>
+                    <h1>Contact</h1>
                     <div class="text-zero top-right-button-container">
                         <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split top-right-button top-right-button-single" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACTIONS</button>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -22,10 +22,7 @@
                             <li class="breadcrumb-item">
                                 <a href="#">Home</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">Library</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">Data</li>
+                            <li class="breadcrumb-item active" aria-current="page">Contact</li>
                         </ol>
                     </nav>
                 </div>
@@ -53,7 +50,7 @@
                                             <div class="card-body pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero">
                                                 <div class="min-width-zero">
                                                     <a href="#">
-                                                        <p class="list-item-heading mb-1 truncate">{{$person->name}}</p>
+                                                        <p class="list-item-heading mb-1 truncate">{{$person->user->name}}</p>
                                                     </a>
                                                     <p class="mb-2 text-muted text-small">Head Developer</p>
                                                     <button type="button" class="btn btn-xs btn-outline-info blockcontact mr-2" id="{{$person->person}}-block">@if($person->status) Block @else Unblock @endif</button>

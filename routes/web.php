@@ -74,6 +74,11 @@ Route::group(['namespace' => 'User','middleware'=>['auth','suspicion','enterpris
     Route::post('invoice/save','InvoiceController@save')->name('invoice.save');
     Route::post('invoice/showconversation','InvoiceController@showconversation')->name('invoiceconversation');
     Route::get('escrow','EscrowController@index')->name('escrow');
+    Route::get('escrow/create','EscrowController@create')->name('escrow.create');
+    Route::get('escrow/view/{escrow}','EscrowController@view')->name('escrow.view');
+    Route::post('escrow/save','EscrowController@save')->name('escrow.save');
+    Route::post('Escrow/showconversation','EscrowController@showconversation')->name('escrowconversation');
+    
     Route::get('payment','PaymentController@index')->name('payment');
     Route::post('chat','ChatController@index')->name('chat');
 

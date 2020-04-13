@@ -16,7 +16,7 @@
                     <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
                         <ol class="breadcrumb pt-0">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Invoice</a></li>
+                            <li class="breadcrumb-item"><a href="#">Escrow</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Create</li>
                         </ol>
                     </nav>
@@ -290,7 +290,7 @@
 
                     </div>
                     <div class="col-12 col-lg-7 col-xl-8 col-right survey-app">
-                        <form id="invoicecreateform" action="{{route('invoice.save')}}" method="POST" enctype="multipart/form-data">@csrf
+                        <form id="escrowcreateform" action="{{route('escrow.save')}}" method="POST" enctype="multipart/form-data">@csrf
                             <div class="sortable-survey">
                                 <div class="receiver">
                                     <div class="card question d-flex mb-4 edit-quesiton">
@@ -341,7 +341,7 @@
                                         <div class="collapse question-collapse" id="q3">
                                             <div></div>
                                             <div class="card-body pt-0">
-                                                <p>Invoice will automatically expire on 12/12/2020</p>
+                                                <p>Escrow will automatically expire on 12/12/2020</p>
                                                 <div class="edit-mode">
                                                     <div class="form-group mb-3">
                                                         <label class="d-block">Currency</label>
@@ -433,28 +433,28 @@
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label>Add Note</label>
-                                                        <input name="note" class="form-control" type="text" placeholder="About this invoice">
+                                                        <input name="note" class="form-control" type="text" placeholder="About this escrow">
                                                     </div>
                                                     <div class="form-group mb-3">
                                                         <label>Attach Media</label>
                                                         <div class="btn-group d-flex justify-content-around chatbuttons" role="group" aria-label="Basic example">
                                                             <button type="button" id="upload_link" class="btn btn-light default"><i class="simple-icon-paper-clip"></i></button>
-                                                            <input id="uploadfile" type="file" name="invoicefile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none"/>
-                                                            <button type="button" id="invoicecamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
-                                                            <input type="hidden" name="invoicecamera" style="display:none"/>
-                                                            <button type="button" id="invoiceaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
-                                                            <input type="hidden" name="invoiceaudio" style="display:none"/>
-                                                            <button type="button" id="invoicevideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
-                                                            <input type="hidden" name="invoicevideo" style="display:none"/>
+                                                            <input id="uploadfile" type="file" name="escrowfile" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" style="display:none"/>
+                                                            <button type="button" id="escrowcamera" class="btn btn-light default"><i class="simple-icon-camera"></i></button>
+                                                            <input type="hidden" name="escrowcamera" style="display:none"/>
+                                                            <button type="button" id="escrowaudio" class="btn btn-light default"><i class="simple-icon-microphone"></i></button>
+                                                            <input type="hidden" name="escrowaudio" style="display:none"/>
+                                                            <button type="button" id="escrowvideo" class="btn btn-light default"><i class="iconsminds-video-tripod"></i></button>
+                                                            <input type="hidden" name="escrowvideo" style="display:none"/>
 
                                                         </div>
 
                                                     </div>
                                                     <ul class="d-flex list-unstyled productmedia">
-                                                        <li class="mx-2" id="invoicefilename" style="cursor:pointer"></li>
-                                                        <li class="mx-2" id="invoiceaudioname" style="cursor:pointer"></li>
-                                                        <li class="mx-2" id="invoicevideoname" style="cursor:pointer"></li>
-                                                        <li class="mx-2" id="invoicecapturename" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="escrowfilename" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="escrowaudioname" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="escrowvideoname" style="cursor:pointer"></li>
+                                                        <li class="mx-2" id="escrowcapturename" style="cursor:pointer"></li>
                                                     </ul>
 
                                                 </div>
@@ -557,7 +557,7 @@
         </div>
     </div>
     <div class="app-menu" style="width:300px !important;">
-        <span class="d-block mt-3 text-center">Invoice Result</span>
+        <span class="d-block mt-3 text-center">Escrow Result</span>
         {{-- @include('user.chat.recentmessages') --}}
         <a class="app-menu-button d-inline-block d-xl-none" href="#">
             <i class="simple-icon-options"></i>
@@ -661,7 +661,7 @@
 @include('user.chat.captureimage')
 
 <script>
-    var formElement = document.getElementById('invoicecreateform');
+    var formElement = document.getElementById('escrowcreateform');
     var formData = new FormData(formElement);
     var caller;
     //currency//
@@ -712,13 +712,13 @@
         $("#uploadfile:hidden").trigger('click');
     });
     $('#uploadfile').change(function () {
-        $('#invoicefilename').html($(this)[0].files[0].name +'<i class="simple-icon-close text-danger ml-1"></i>');
+        $('#escrowfilename').html($(this)[0].files[0].name +'<i class="simple-icon-close text-danger ml-1"></i>');
     });
-    $('#invoicefilename').click(function(){
+    $('#escrowfilename').click(function(){
         $("#uploadfile:hidden").val('');
         $(this).html('');
     });
-    $('#invoicecamera').click(function(){
+    $('#escrowcamera').click(function(){
         caller = $(this).attr('id');
         $("#imageCapture").modal();
         Webcam.set({
@@ -732,24 +732,24 @@
         $('#my_camera1 video').width('100%');
         $('#my_camera1 video').height('100%');
     });
-    $('#invoicecapturename').click(function(){
+    $('#escrowcapturename').click(function(){
         $("#uploadfile:hidden").val('');
         $(this).html('');
     });
-    $('#invoiceaudio').click(function(){
+    $('#escrowaudio').click(function(){
         caller = $(this).attr('id');
         $("#audioRecord").modal();
     });
-    $('#invoiceaudioname').click(function(){
-        $("input[name='invoiceaudio']:hidden").val('');
+    $('#escrowaudioname').click(function(){
+        $("input[name='escrowaudio']:hidden").val('');
         $(this).html('');
     });
-    $('#invoicevideo').click(function(){
+    $('#escrowvideo').click(function(){
         caller = $(this).attr('id');
         $("#videoRecord").modal();
     });
-    $('#invoicevideoname').click(function(){
-        $("input[name='invoicevideo']:hidden").val('');
+    $('#escrowvideoname').click(function(){
+        $("input[name='escrowvideo']:hidden").val('');
         $(this).html('');
     });
 </script>
@@ -780,9 +780,9 @@
         reader.readAsDataURL(adata);
         reader.onloadend = function() {
             var base64data = reader.result;
-            if(caller == 'invoiceaudio'){
-                $("input[name='invoiceaudio']:hidden").val(data_uri);
-                $('#invoiceaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
+            if(caller == 'escrowaudio'){
+                $("input[name='escrowaudio']:hidden").val(data_uri);
+                $('#escrowaudioname').html('audio.mp3 <i class="simple-icon-close text-danger ml-1"></i>');
             }
             else{
                 $(caller).next("input[name='product[audio][]']:hidden").val(base64data);
@@ -809,9 +809,9 @@
         reader.readAsDataURL(vdata);
         reader.onloadend = function() {
             var base64data = reader.result;
-            if(caller == 'invoicevideo'){
-                $("input[name='invoicevideo']:hidden").val(data_uri);
-                $('#invoicevideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
+            if(caller == 'escrowvideo'){
+                $("input[name='escrowvideo']:hidden").val(data_uri);
+                $('#escrowvideoname').html('video.mp4 <i class="simple-icon-close text-danger ml-1"></i>');
             }
             else{
                 $(caller).next("input[name='product[video][]']:hidden").val(base64data);
@@ -855,9 +855,9 @@
     function take_snapshot1() {
         // take snapshot and get image data
         Webcam.snap( function(data_uri) {
-            if(caller == 'invoicecamera'){
-                $("input[name='invoicecamera']:hidden").val(data_uri);
-                $('#invoicecapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
+            if(caller == 'escrowcamera'){
+                $("input[name='escrowcamera']:hidden").val(data_uri);
+                $('#escrowcapturename').html('image.jpg <i class="simple-icon-close text-danger ml-1"></i>');
             }
             else{
                 $(caller).next("input[name='product[capture][]']:hidden").val(data_uri);
