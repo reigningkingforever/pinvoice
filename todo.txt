@@ -1,23 +1,3 @@
-  "receiver" => array:1 [▶]
-  "currency" => "1"
-  "tax" => "5"
-  "tax_type" => "%"
-  "discount" => "15"
-  "discount_type" => ".00"
-  "discountexpiry" => "2"
-  "penalty" => "10"
-  "penalty_type" => ".00"
-  "penaltyperiod" => "4"
-  "escrowfee" => "sender"
-  "note" => "Sint minus asperior"
-  "invoicecamera" => "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFB ▶"
-  "invoiceaudio" => null
-  "invoicevideo" => null
-  "product" => array:9 [▶]
-  "invoicefile" => Illuminate\Http\UploadedFile {#392 ▶}
-]
-
-
 
 [upload funds
 withdraw funds
@@ -26,21 +6,23 @@ transfer funds] -> should I implement flutter?
 how do we go about BTC ?
 
 
-ENTERPRISE
-ROLES
-
-
-3. if new device, send OTP to email/or phone
-6. Enterprise permissions
-7. Add Reset profile password (for Enterprise admin) to Reset password page
-9. verify mobile...in profile, when you add phone number, you must verify it, then you can login with it
-10. visitors,
-a1.Staff permissions (ability to send invoice, make payment, add invoice template, manage company profile, etc)
-a2.get notified of staff activities
-a3.create invoice and send, check if user is in contact and is on...
-a4.role middleware
-add search to chat
-
+if new device, send OTP to email/or phone
+reset password OTP confirmation
+draft invoice/escrow, and publish
+reissue expired invoice/escrow
+when invoice expires, hide from user and change status to expired
+Enterprise permissions:a1.Staff permissions (ability to send invoice, make payment, add invoice template, manage company profile, etc)
+Add Reset profile password (for Enterprise admin) to Reset password page
+verify mobile...in profile, when you add phone number, you must verify it, then you can login with it
+Notifications sitewide
+Enterprise notifiations on staff activities
+role middleware
+add search to chat (search recent messages, search conversations)
+make conversation scrow to bottom onload
+pay for invoice/escrow
+histories: login, activities, password histories
+invoice and escrow view page
+faceauth
 ADMIN
 add currency page
 

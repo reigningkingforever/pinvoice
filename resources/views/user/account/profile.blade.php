@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="mb-2">
-                    <h1>Sarah Kortney</h1>
+                    <h1>Account</h1>
                     <div class="text-zero top-right-button-container">
                         <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split top-right-button top-right-button-single" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACTIONS</button>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a></div>
@@ -295,7 +295,7 @@
                                                     <option value="OR">Oregon</option>
                                                     <option value="WA">Washington</option>
                                                     <option value="AZ">Arizona</option>
-                                                    
+
                                                 </select>
 
                                             </div>

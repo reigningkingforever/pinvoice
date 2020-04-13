@@ -12,6 +12,9 @@ class PaymentController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        return view('user.payment');
+        return view('user.payment.account');
+    }
+    public function transactions(){
+        return view('user.transactions');
     }
 }

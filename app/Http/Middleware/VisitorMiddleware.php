@@ -29,16 +29,16 @@ class VisitorMiddleware
                 ->asJsonResponse()
                 ->get();
                 if(isset($place->country_code))
-                $temp = ['iso_code'=> $place->country_code,'country'=> $place->country_name,'currency'=> $place->currency,'currency_name'=>$place->currency_name,'dialing_code'=> $place->country_calling_code];
+                $temp = ['iso_code'=> $place->country_code,'country'=> $place->country_name,'state'=> $place->region ,'city'=> $place->city,'currency'=> $place->currency,'currency_name'=>$place->currency_name,'dialing_code'=> $place->country_calling_code];
                 else
-                $temp = ['iso_code'=> 'NG','country'=> 'Nigeria','currency'=>'NGN','currency_name'=>'Naira','dialing_code'=> '+234'];
+                $temp = ['iso_code'=> 'NG','country'=> 'Nigeria','state'=>'Lagos','city'=>'Lagos','currency'=>'NGN','currency_name'=>'Naira','dialing_code'=> '+234'];
                 $country = Country::firstOrCreate(['iso_code'=>$temp['iso_code']], ['name'=> $temp['country'],'dialing_code'=>$temp['dialing_code'],'currency'=>$temp['currency_name'],'currency_code'=>$temp['currency'] ]);
                 $visitor = Visitor::firstOrNew(
                     ['ip_address' => Agent::ip(),
                     'url' => Agent::server('httpHost').Agent::server('requestUri'),
-                    'country'=> $place->country_name,
-                    'state'=> $place->region,
-                    'city'=> $place->city,
+                    'country'=> $temp['country'],
+                    'state'=> $temp['state'],
+                    'city'=> $temp['city'],
                     'user_id'=> request()->user() ? request()->user()->id : 0,
 
                     'device_type'=> Agent::device()->getType(),
